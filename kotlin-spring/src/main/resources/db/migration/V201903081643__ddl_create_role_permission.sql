@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS auth_role_permission
 (
-  permission_id BIGSERIAL,
-  role_id       BIGSERIAL,
+  permission_id BIGINT,
+  role_id       BIGINT,
   expired_date  TIMESTAMP
 )

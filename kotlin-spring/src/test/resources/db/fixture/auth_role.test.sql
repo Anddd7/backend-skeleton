@@ -1,0 +1,3 @@
+TRUNCATE TABLE auth_role CASCADE;
+
+INSERT INTO auth_role VALUES (1, 'ROLE1', NULL), (2, 'ROLE2', 1), (3, 'ROLE3', 1);

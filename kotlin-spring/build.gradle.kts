@@ -2,6 +2,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
+buildscript {
+    dependencies {
+        // import dependencies for flyway plugin
+        classpath("org.postgresql:postgresql:42.2.5")
+    }
+}
+
 // import plugins into this project
 plugins {
     val kotlinVersion = "1.3.21"
@@ -21,6 +28,9 @@ plugins {
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
 
     id("org.flywaydb.flyway") version "5.2.4"
+
+    // base on `kotlin-noarg`, generate default method for entity
+    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
 }
 
 // configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
@@ -80,8 +90,10 @@ dependencies {
     // different with flyway-plugin, inject this and open spring auto-migration by flyway
     runtimeOnly("org.flywaydb:flyway-core")
 
-    // db
+    // postgres
     runtimeOnly("org.postgresql:postgresql")
+    // test with postgres
+    testImplementation("io.zonky.test:embedded-database-spring-test:1.4.1")
 
     // hibernate x postgresql'sjsonb
     implementation("com.vladmihalcea:hibernate-types-52:2.3.2")
@@ -90,10 +102,15 @@ dependencies {
     runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
 
     // utils
-    implementation("kcom.google.guava:guava:27.0.1-jre")
+    implementation("com.google.guava:guava:27.0.1-jre")
 
     // junit5
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+    // testing
+    testImplementation("io.mockk:mockk:1.8.13")
+    testImplementation("org.assertj:assertj-core:3.11.1")
+
 }
 
 task("newMigration") {
@@ -106,7 +123,7 @@ task("newMigration") {
         val (operation, type) = properties["operation"] to properties["type"]
         val resourcesPath = sourceSets["main"].resources.sourceDirectories.singleFile.path
         val timestamp = now().format(ofPattern("yyyyMMddHHmm"))
-        val filename = "V${timestamp}_${type}_$operation.sql"
+        val filename = "V${timestamp}__${type}_$operation.sql"
         val filepath = "$resourcesPath/db/migration/$filename"
         File(filepath).takeIf { it.createNewFile() }?.appendText("-- script")
     }

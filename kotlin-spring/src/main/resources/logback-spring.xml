@@ -1,9 +1,11 @@
 <configuration>
-  <include resource="logback-console.xml"/>
-  <include resource="logback-elk.xml"/>
+  <include resource="included-console.xml"/>
+  <include resource="included-elk.xml"/>
 
   <springProfile name="local,test">
     <logger level="DEBUG" name="com.github.anddd7"/>
+    <logger level="INFO" name="org.hibernate.SQL"/>
+    <logger level="INFO" name="org.hibernate.type.descriptor.sql.BasicBinder"/>
 
     <root level="INFO">
       <appender-ref ref="STDOUT"/>

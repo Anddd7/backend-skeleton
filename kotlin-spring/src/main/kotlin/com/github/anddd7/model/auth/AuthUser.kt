@@ -4,6 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
@@ -13,15 +14,12 @@ import javax.persistence.Table
 @Table(name = "auth_user")
 data class AuthUser(
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    val id: Long,
+    val id: Long = 0,
 
     @Column(name = "name")
-    val name: String,
-
-    @Column(name = "role_id")
-    val roleId: Long
+    val name: String = ""
 ) {
     /**
      * @JoinColumn indicates that this entity is the owner of the relationship

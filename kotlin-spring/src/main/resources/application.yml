@@ -11,6 +11,9 @@ spring:
     properties:
       hibernate:
         format_sql: false # not suitable for ELK
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 management:
   server:
