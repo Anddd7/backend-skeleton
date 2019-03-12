@@ -1,10 +1,11 @@
 features:
--[ ] 权限管理: 用户 角色 资源
+-[x] 权限管理: 用户 角色 资源
+  - [] Add `resource url` in permission, 使用code作为主键 instead `id`
 -[ ] 登录校验, security, JWT信息
 -[ ] Cache
 -[ ] field validation
 -[ ] redis
--[ ] integration test, unit test, mockk, assertj
+-[x] integration test,jpa test, unit test, mockk, assertj
 -[ ] audit logging
 -[ ] jpa, mybatis
 -[ ] jacoco, detekt

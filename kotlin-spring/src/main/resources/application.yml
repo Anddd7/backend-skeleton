@@ -2,6 +2,8 @@ server:
   port: 9999
 
 spring:
+  profiles:
+    active: local
   application:
     name: kotlin-spring
   jpa:

@@ -105,7 +105,7 @@ dependencies {
     implementation("com.google.guava:guava:27.0.1-jre")
 
     // junit5
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine")
 
     // testing
     testImplementation("io.mockk:mockk:1.8.13")
