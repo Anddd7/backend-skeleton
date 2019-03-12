@@ -1,5 +1,6 @@
 package com.github.anddd7.model.auth
 
+import com.github.anddd7.repository.refs.AuthRolePermission
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -22,7 +23,7 @@ data class AuthRole(
     @Column(name = "name")
     val name: String = ""
 ) {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     val parent: AuthRole? = null
 
@@ -33,6 +34,20 @@ data class AuthRole(
      * @OneToMany(mappedBy=...) indicates that the entity in this side is the inverse of the relationship,
      * and the owner resides in the "other" entity
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @OneToMany(mappedBy = "role")
     val users: Set<AuthUser> = emptySet()
+
+    // @ManyToMany https://www.baeldung.com/jpa-many-to-many
+    @OneToMany(mappedBy = "role")
+    val permissionRefs: Set<AuthRolePermission> = emptySet()
+
+    @delegate:Transient
+    private val parentPermissions: List<AuthPermission> by lazy { parent?.permissions ?: emptyList() }
+
+    @delegate:Transient
+    val permissions: List<AuthPermission> by lazy {
+        (parentPermissions + permissionRefs.mapNotNull { it.permission }).distinctBy { it.id }
+    }
+
+    fun isAccessible(code: PermissionCode) = permissions.any { it.code == code.name }
 }

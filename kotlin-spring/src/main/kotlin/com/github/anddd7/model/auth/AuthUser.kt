@@ -28,4 +28,6 @@ data class AuthUser(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     val role: AuthRole? = null
+
+    fun isAccessible(code: PermissionCode) = role?.isAccessible(code) ?: false
 }
