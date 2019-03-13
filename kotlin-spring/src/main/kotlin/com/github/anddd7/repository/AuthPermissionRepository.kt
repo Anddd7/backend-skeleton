@@ -6,4 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface AuthPermissionRepository : JpaRepository<AuthPermission, Long>
+interface AuthPermissionRepository : JpaRepository<AuthPermission, String>

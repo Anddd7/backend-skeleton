@@ -6,3 +6,27 @@
   e.g if you want to delete a column in DB and related code, you can remove it from code first.
   Wait current version is stable, no one else is using, then drop it in next migration script.
  
+ 
+# tips
+
+### How to update properties in a jsonb array
+Ref:[how-to-update-complex-jsonb-column](https://dba.stackexchange.com/questions/146683/how-to-update-complex-jsonb-column)
+
+Case: insert a new item into json array, and update the order of others
+```json
+[{
+  "id":1,
+  "name": "name",
+  "order": 1
+}]
+```
+```postgresql
+UPDATE target_table
+SET target_column = (
+  SELECT jsonb_agg(
+    CASE WHEN VALUE ->> 'order' >= '3' 
+           THEN jsonb_set(VALUE, '{order}', to_jsonb((VALUE ->> 'order')::INT + 1))
+         ELSE VALUE
+    END)
+  FROM jsonb_array_elements(target_column)) || '{"id":6,"name":"new item","order":3}';
+```

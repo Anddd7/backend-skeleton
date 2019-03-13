@@ -24,7 +24,7 @@ internal class AuthRolePermissionRepositoryTest {
         val roles = authRoleRepository.findAll()
         assertThat(roles).hasSize(3)
 
-        val permissions = roles.flatMap { it.permissions }.distinctBy { it.id }.sortedBy { it.id }
+        val permissions = roles.flatMap { it.permissions }.distinctBy { it.code }.sortedBy { it.code }
         assertThat(permissions).hasSize(2)
         assertThat(permissions.first().code).isEqualTo("DASHBOARD")
     }

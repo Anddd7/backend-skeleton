@@ -38,11 +38,11 @@ internal class AuthUserPermissionRepositoryTest {
 
     @Test
     fun `should allowed users of the permission`() {
-        val dashboard = authPermissionRepository.getOne(1)
+        val dashboard = authPermissionRepository.getOne(PermissionCode.DASHBOARD.name)
         assertThat(dashboard.roles).hasSize(3)
         assertThat(dashboard.users).hasSize(4)
 
-        val order = authPermissionRepository.getOne(2)
+        val order = authPermissionRepository.getOne(PermissionCode.ORDER.name)
         assertThat(order.roles).hasSize(1)
         assertThat(order.users).hasSize(1)
     }

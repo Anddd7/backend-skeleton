@@ -1,6 +1,19 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
+
+/** -------------- project's properties -------------- */
+
+group = "com.github.anddd7"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+/** -------------- import & apply plugins -------------- */
 
 buildscript {
     dependencies {
@@ -33,13 +46,10 @@ plugins {
     id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
 }
 
-// configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
-tasks.withType<KotlinCompile> {
-    kotlinOptions.apiVersion = "1.3"
-    kotlinOptions.languageVersion = "1.3"
+// apply dependency plugin form spring-boot plugin
+apply(plugin = "io.spring.dependency-management")
 
-    kotlinOptions.jvmTarget = "1.8"
-}
+/** -------------- configure imported plugin -------------- */
 
 idea {
     module {
@@ -53,17 +63,24 @@ flyway {
     url = "jdbc:postgresql://localhost:5432/test?user=test&password=test"
 }
 
-// apply dependency plugin form spring-boot plugin
-apply(plugin = "io.spring.dependency-management")
+/** -------------- configure core task -------------- */
 
-// project's properties
-group = "com.github.anddd7"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
-    jcenter()
+// configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
+tasks.withType<KotlinCompile> {
+    kotlinOptions.apiVersion = "1.3"
+    kotlinOptions.languageVersion = "1.3"
+    kotlinOptions.jvmTarget = "1.8"
 }
+
+tasks.withType<Test> {
+    testLogging {
+        quiet {
+            events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
+        }
+    }
+}
+
+/** -------------- dependencies management -------------- */
 
 dependencies {
     /**
@@ -110,8 +127,9 @@ dependencies {
     // testing
     testImplementation("io.mockk:mockk:1.8.13")
     testImplementation("org.assertj:assertj-core:3.11.1")
-
 }
+
+/** -------------- new task -------------- */
 
 task("newMigration") {
     group = "flyway"

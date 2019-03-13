@@ -19,8 +19,8 @@ data class AuthRolePermissionKey(
     @Column(name = "role_id")
     val roleId: Long = 0,
 
-    @Column(name = "permission_id")
-    val permissionId: Long = 0
+    @Column(name = "permission_code")
+    val permissionCode: String = ""
 ) : Serializable
 
 @Entity
@@ -37,8 +37,8 @@ data class AuthRolePermission(
      * @JoinColumn then mark it as a join column of @ManyToOne relationship
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("permission_id")
-    @JoinColumn(name = "permission_id")
+    @MapsId("permission_code")
+    @JoinColumn(name = "permission_code")
     val permission: AuthPermission? = null
 
     @ManyToOne(fetch = FetchType.LAZY)

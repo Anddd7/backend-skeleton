@@ -46,7 +46,7 @@ data class AuthRole(
 
     @delegate:Transient
     val permissions: List<AuthPermission> by lazy {
-        (parentPermissions + permissionRefs.mapNotNull { it.permission }).distinctBy { it.id }
+        (parentPermissions + permissionRefs.mapNotNull { it.permission }).distinctBy { it.code }
     }
 
     fun isAccessible(code: PermissionCode) = permissions.any { it.code == code.name }
