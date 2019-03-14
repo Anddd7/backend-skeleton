@@ -20,4 +20,4 @@ features:
   Hibernate is more advantageous than mybatis in most of scenario.
 -[ ] hibernate cache
 -[ ] jacoco, ~~ktlint,~~ detekt
-  - detekt include most of features of ktlint, idea also provides good lint.
+  - [x] detekt include most of features of ktlint, idea also provides good lint.

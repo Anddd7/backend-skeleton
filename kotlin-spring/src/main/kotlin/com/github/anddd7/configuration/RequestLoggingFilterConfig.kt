@@ -12,6 +12,5 @@ class RequestLoggingFilterConfig {
             setIncludeHeaders(false)
             setIncludeQueryString(true)
             setIncludePayload(true)
-            setMaxPayloadLength(10000)
         }
 }

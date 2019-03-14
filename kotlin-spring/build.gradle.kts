@@ -16,6 +16,9 @@ repositories {
 /** -------------- import & apply plugins -------------- */
 
 buildscript {
+    repositories {
+        jcenter()
+    }
     dependencies {
         // import dependencies for flyway plugin
         classpath("org.postgresql:postgresql:42.2.5")
@@ -44,6 +47,8 @@ plugins {
 
     // base on `kotlin-noarg`, generate default method for entity
     id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+
+    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC14"
 }
 
 // apply dependency plugin form spring-boot plugin
@@ -61,6 +66,12 @@ idea {
 
 flyway {
     url = "jdbc:postgresql://localhost:5432/test?user=test&password=test"
+}
+
+detekt {
+    toolVersion = "1.0.0-RC14"
+    input = files("src/main/kotlin")
+    filters = ".*/resources/.*,.*/build/.*"
 }
 
 /** -------------- configure core task -------------- */
