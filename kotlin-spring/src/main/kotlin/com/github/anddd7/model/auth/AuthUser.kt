@@ -1,5 +1,7 @@
 package com.github.anddd7.model.auth
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
@@ -9,9 +11,11 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.persistence.Transient
 
 @Entity
 @Table(name = "auth_user")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 data class AuthUser(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +33,6 @@ data class AuthUser(
     @JoinColumn(name = "role_id")
     val role: AuthRole? = null
 
-    fun isAccessible(code: PermissionCode) = role?.isAccessible(code) ?: false
+    @delegate:Transient
+    val permissions: List<AuthPermission> by lazy { role?.permissions ?: emptyList() }
 }

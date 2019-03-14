@@ -1,5 +1,8 @@
 package com.github.anddd7.model.auth
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.github.anddd7.repository.refs.AuthRolePermission
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -14,6 +17,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "auth_role")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 data class AuthRole(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +43,7 @@ data class AuthRole(
 
     // @ManyToMany https://www.baeldung.com/jpa-many-to-many
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     val permissionRefs: Set<AuthRolePermission> = emptySet()
 
     @delegate:Transient

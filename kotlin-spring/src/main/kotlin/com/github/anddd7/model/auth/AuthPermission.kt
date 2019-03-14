@@ -1,6 +1,10 @@
 package com.github.anddd7.model.auth
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
 import com.github.anddd7.repository.refs.AuthRolePermission
+import org.springframework.security.core.GrantedAuthority
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -9,6 +13,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "auth_permission")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator::class, property = "id")
 class AuthPermission(
     @Id
     @Column(name = "code")
@@ -16,8 +21,9 @@ class AuthPermission(
 
     @Column(name = "description")
     val description: String? = null
-) {
+) : GrantedAuthority {
     @OneToMany(mappedBy = "permission")
+    @JsonIgnore
     val roleRefs: Set<AuthRolePermission> = emptySet()
 
     // use lazy load instead of repeated function calls
@@ -27,6 +33,10 @@ class AuthPermission(
     }
     @delegate:Transient
     val users: List<AuthUser> by lazy { roles.flatMap { it.users }.distinctBy { it.id } }
+
+    override fun getAuthority() = code
+
+    fun belong(permissionCode: PermissionCode) = code === permissionCode.name
 }
 
 enum class PermissionCode {

@@ -4,6 +4,9 @@
 
   <springProfile name="local,test">
     <logger level="DEBUG" name="com.github.anddd7"/>
+    <logger level="DEBUG" name="org.springframework.web.filter.CommonsRequestLoggingFilter"/>
+    <logger level="DEBUG" name="org.springframework.security"/>
+
     <logger level="INFO" name="org.hibernate.SQL"/>
     <logger level="INFO" name="org.hibernate.type.descriptor.sql.BasicBinder"/>
 

@@ -99,6 +99,8 @@ dependencies {
     }
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
 
     // swagger
     implementation("io.springfox:springfox-swagger2:2.9.2")
@@ -111,6 +113,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     // test with postgres
     testImplementation("io.zonky.test:embedded-database-spring-test:1.4.1")
+    testRuntimeOnly("org.testcontainers:postgresql:1.8.3")
 
     // hibernate x postgresql'sjsonb
     implementation("com.vladmihalcea:hibernate-types-52:2.3.2")

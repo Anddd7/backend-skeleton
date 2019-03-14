@@ -21,16 +21,16 @@ internal class AuthUserPermissionRepositoryTest {
     @Test
     fun `should return whether role have the permission`() {
         val user2 = authUserRepository.getOne(2)
-        assertThat(user2.isAccessible(PermissionCode.DASHBOARD)).isTrue()
-        assertThat(user2.isAccessible(PermissionCode.ORDER)).isFalse()
+        assertThat(user2.permissions.any { it.belong(PermissionCode.DASHBOARD) }).isTrue()
+        assertThat(user2.permissions.any { it.belong(PermissionCode.ORDER) }).isFalse()
 
         val user3 = authUserRepository.getOne(3)
-        assertThat(user3.isAccessible(PermissionCode.DASHBOARD)).isTrue()
-        assertThat(user3.isAccessible(PermissionCode.ORDER)).isFalse()
+        assertThat(user3.permissions.any { it.belong(PermissionCode.DASHBOARD) }).isTrue()
+        assertThat(user3.permissions.any { it.belong(PermissionCode.ORDER) }).isFalse()
 
         val user4 = authUserRepository.getOne(4)
-        assertThat(user4.isAccessible(PermissionCode.DASHBOARD)).isTrue()
-        assertThat(user4.isAccessible(PermissionCode.ORDER)).isTrue()
+        assertThat(user4.permissions.any { it.belong(PermissionCode.DASHBOARD) }).isTrue()
+        assertThat(user4.permissions.any { it.belong(PermissionCode.ORDER) }).isTrue()
     }
 
     @Autowired
