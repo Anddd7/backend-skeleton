@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthorizationService(val authUserRepository: AuthUserRepository) : UserDetailsService {
+    @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
         val authUser = authUserRepository.findByName(username)
             ?: throw UsernameNotFoundException("Can't find registered user: $username")
