@@ -3,10 +3,10 @@ features:
   - [x] 使用code作为permission主键 instead `id`
   - [x] ~~Add `resource url` mapping to permission, 通过filter自动校验权限~~, 使用annotation
 -[x] 登录校验, security
-  - JWT
-  - OAuth: 多client
+  - [ ] JWT
+  - [ ] OAuth: 多client
 -[ ] Cache
--[ ] field validation
+-[x] field validation
 -[ ] redis
 -[x] integration test,jpa test, unit test, mockk, assertj
 -[ ] logging

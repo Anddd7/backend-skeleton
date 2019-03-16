@@ -113,6 +113,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
 
+    // validation extension
+    implementation("org.hibernate.validator:hibernate-validator:6.0.15.Final")
+
+    // jackson extension
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+
     // swagger
     implementation("io.springfox:springfox-swagger2:2.9.2")
     runtimeOnly("io.springfox:springfox-swagger-ui:2.9.2")

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
 @Service
-@Profile("local")
+@Profile("local", "test")
 class TempService {
     private val temp: Temp by lazy { Temp() }
 
