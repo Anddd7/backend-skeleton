@@ -1,7 +1,5 @@
 package com.github.anddd7;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -11,12 +9,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
-import javax.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.util.NestedServletException;
 
 @IntegrationTesting
 class TempControllerTest {
@@ -43,14 +39,22 @@ class TempControllerTest {
   @Test
   void shouldPassValidationOfRequestParametersAndBody() throws Exception {
     Map<String, Object> phone = new HashMap<>();
-    phone.put("areaCode", 86);
-    phone.put("number", 1234567890);
+    phone.put("areaCode", "86");
+    phone.put("number", "12345678901");
+
+    Map<String, Object> userInfo = new HashMap<>();
+    userInfo.put("name", "and777");
+    userInfo.put("age", 10);
+    userInfo.put("email", "liaoad_space@sina.com");
+    userInfo.put("phone", phone);
+
+    Map<String, Object> moreDescription = new HashMap<>();
+    moreDescription.put("title", "title");
+    moreDescription.put("content", "more description should more than 10");
 
     Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("name", "and777");
-    requestBody.put("age", 10);
-    requestBody.put("email", "liaoad_space@sina.com");
-    requestBody.put("phone", phone);
+    requestBody.put("userInfo", userInfo);
+    requestBody.put("moreDescription", moreDescription);
 
     mvc.perform(
         post("/temp/validate")
@@ -62,29 +66,45 @@ class TempControllerTest {
   }
 
   @Test
-  void shouldGotValidationErrorWhileRequestParametersOrBodyIsInvalid() throws Exception {
+  void shouldGotValidationError_WhileRequestParametersOrBodyIsInvalid() throws Exception {
     Map<String, Object> phone = new HashMap<>();
-    phone.put("areaCode", 0);
-    phone.put("number", -1);
+    phone.put("areaCode", "0");
+    phone.put("number", "1");
+
+    Map<String, Object> userInfo = new HashMap<>();
+    userInfo.put("name", "");
+    userInfo.put("age", 8);
+    userInfo.put("email", "liaoad_space");
+    userInfo.put("phone", phone);
+
+    Map<String, Object> moreDescription = new HashMap<>();
+    moreDescription.put("title", "");
+    moreDescription.put("content", "");
 
     Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("name", "");
-    requestBody.put("age", 9);
-    requestBody.put("email", "liaoad_space");
-    requestBody.put("phone", phone);
+    requestBody.put("userInfo", userInfo);
+    requestBody.put("moreDescription", moreDescription);
 
-    NestedServletException nestedException = assertThrows(
-        NestedServletException.class,
-        () -> mvc.perform(
-            post("/temp/validate")
-                .param("correlationId", "")
-                .param("operations", "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsString(requestBody))
-        ).andExpect(status().isBadRequest())
-            .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
-    );
-
-    assertThat(nestedException.getCause()).isInstanceOf(ConstraintViolationException.class);
+    mvc.perform(
+        post("/temp/validate")
+            .param("correlationId", "")
+            .param("operations", "")
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .content(objectMapper.writeValueAsString(requestBody))
+    ).andExpect(status().isBadRequest())
+        // moreDescription, name, age, email, phone, phone.areaCode, phone.number
+        .andExpect(jsonPath("$.length()").value(7))
+        .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
+    /*
+    [
+      "userInfo.age: must be between 9 and 99",
+      "userInfo.email: must be a well-formed email address",
+      "moreDescription: At least one of title and content should be non-empty",
+      "userInfo.phone.areaCode: must match \"(-)?\\d{2,3}\"",
+      "userInfo.name: must not be blank",
+      "userInfo: username can't be null or `unknown`",
+      "userInfo.phone.number: size must be between 6 and 20"
+    ]
+    */
   }
 }

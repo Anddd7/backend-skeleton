@@ -7,6 +7,7 @@ features:
   - [ ] OAuth: 多client
 -[ ] Cache
 -[x] field validation
+  - [x] complex model validation
 -[ ] redis
 -[x] integration test,jpa test, unit test, mockk, assertj
 -[ ] logging
@@ -21,3 +22,4 @@ features:
 -[ ] hibernate cache
 -[ ] jacoco, ~~ktlint,~~ detekt
   - [x] detekt include most of features of ktlint, idea also provides good lint.
+-[ ] exception, http status, handler

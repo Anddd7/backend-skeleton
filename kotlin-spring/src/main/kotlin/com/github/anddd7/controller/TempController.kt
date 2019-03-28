@@ -1,5 +1,8 @@
 package com.github.anddd7.controller
 
+import com.github.anddd7.controller.validator.CheckMoreDescription
+import com.github.anddd7.controller.validator.CheckPhoneNumber
+import com.github.anddd7.controller.validator.CheckUserInfo
 import com.github.anddd7.service.TempService
 import org.hibernate.validator.constraints.Range
 import org.springframework.validation.annotation.Validated
@@ -30,27 +33,58 @@ class TempController(val tempService: TempService) {
         "active" to "ok"
     )
 
+    /**
+     * Required request parameter will always be checked, in `MethodValidationInterceptor`
+     * - `MethodValidationInterceptor` is also used to validate method-level parameters
+     * Request body will be checked in `RequestResponseBodyMethodProcessor`
+     * - Only validate model if it's marked @Valid
+     */
     @PostMapping("/validate")
     fun validate(
         @RequestParam @NotBlank correlationId: String,
         @RequestParam @NotEmpty @Size(max = 5) operations: List<String>,
-        @RequestBody @Valid validatedRequest: ValidatedRequest
-    ) = validatedRequest
+        @RequestBody @Valid request: ValidateRequest
+    ) = request
 }
 
-data class ValidatedRequest(
-    @NotBlank
+/**
+ * Constraint annotation can used for value-parameter/field/class
+ * - @RequestBody can't apply value-parameter level annotation at same time
+ * |  - Wrap your model in a request-body-wrapper, add validation annotation on field
+ * |  - Reuse validation annotation as value-parameter level in service
+ * - Validation annotation only validate field/parameter self, won't do validation for nested fields
+ * |  - @Valid is telling validator the model have to validate
+ * |  - @ValidationAnnotation is telling validator how to validate
+ * |  - You need both of them to validate a complex model with nested sub models
+ */
+data class ValidateRequest(
+    @field:Valid // Need to validate sub fields in this model
+    @field:CheckUserInfo // Call `UserInfoValidator` to validate this
+    val userInfo: UserInfo,
+    @field:CheckMoreDescription
+    val moreDescription: MoreDescription
+)
+
+data class UserInfo(
+    @field:NotBlank
     val name: String,
-    @Range(min = 9, max = 99)
+    @field:Range(min = 9, max = 99)
     val age: Int,
-    @Email
+    @field:Email
     val email: String,
-    @Valid
+    @field:Valid
+    @field:CheckPhoneNumber
     val phone: PhoneNumber
 )
 
 data class PhoneNumber(
-    @Pattern(regexp = "/d{2,3}")
-    val areaCode: Int,
-    val number: Int
+    @field:Pattern(regexp = "(-)?\\d{2,3}")
+    val areaCode: String,
+    @field:Size(min = 6, max = 20)
+    val number: String
+)
+
+data class MoreDescription(
+    val title: String,
+    val content: String
 )
