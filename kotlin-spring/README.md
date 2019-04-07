@@ -20,6 +20,6 @@ features:
   - [Hibernate vs MyBatis](https://www.zhihu.com/question/21104468),
   Hibernate is more advantageous than mybatis in most of scenario.
 -[ ] hibernate cache
--[ ] jacoco, ~~ktlint,~~ detekt
+-[x] jacoco, ~~ktlint,~~ detekt
   - [x] detekt include most of features of ktlint, idea also provides good lint.
--[ ] exception, http status, handler
+-[x] exception, http status, handler

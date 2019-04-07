@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator
 import javax.validation.ConstraintValidatorContext
+import javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder
 import javax.validation.Payload
 import kotlin.reflect.KClass
 
@@ -17,6 +18,7 @@ annotation class CheckMoreDescription(
     val payload: Array<KClass<out Payload>> = []
 )
 
+@SuppressWarnings("MagicNumber")
 class MoreDescriptionValidator : ConstraintValidator<CheckMoreDescription, MoreDescription> {
     private val logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -24,18 +26,25 @@ class MoreDescriptionValidator : ConstraintValidator<CheckMoreDescription, MoreD
         logger.debug("MoreDescriptionValidator")
         context.disableDefaultConstraintViolation()
 
-        if (value.title.isEmpty() && value.content.isEmpty()) {
-            context.buildConstraintViolationWithTemplate("At least one of title and content should be non-empty")
-                .addConstraintViolation()
-            return false
+        return when {
+            value.title.isEmpty() && value.content.isEmpty() -> {
+                context.addConstraintViolation("At least one of title and content should be non-empty")
+                false
+            }
+            value.content.isNotEmpty() && value.content.length !in 10..500 -> {
+                context.addConstraintViolation("Content is limit 10-500 characters")
+                false
+            }
+            else -> true
         }
-
-        if (value.content.isNotEmpty() && value.content.length !in 10..500) {
-            context.buildConstraintViolationWithTemplate("Content is limit 10-500 characters")
-                .addConstraintViolation()
-            return false
-        }
-
-        return true
     }
+}
+
+fun ConstraintValidatorContext.addConstraintViolation(
+    template: String,
+    modify: ((ConstraintViolationBuilder) -> Unit)? = null
+): ConstraintValidatorContext {
+    val builder = buildConstraintViolationWithTemplate(template)
+    modify?.invoke(builder)
+    return builder.addConstraintViolation()
 }

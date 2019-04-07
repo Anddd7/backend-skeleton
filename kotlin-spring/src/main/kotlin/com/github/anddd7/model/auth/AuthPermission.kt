@@ -36,7 +36,7 @@ class AuthPermission(
 
     override fun getAuthority() = code
 
-    fun belong(permissionCode: PermissionCode) = code === permissionCode.name
+    fun belong(permissionCode: PermissionCode) = code == permissionCode.name
 }
 
 enum class PermissionCode {
