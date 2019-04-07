@@ -32,6 +32,8 @@ plugins {
     // core plugins, which is already include in plugin dependencies spec
     java
     idea
+    jacoco
+
     kotlin("jvm") version kotlinVersion
 
     /**
@@ -65,13 +67,17 @@ idea {
 }
 
 flyway {
-    url = "jdbc:postgresql://localhost:5432/test?user=test&password=test"
+    url = "jdbc:postgresql://localhost:5433/local?user=test&password=test"
 }
 
 detekt {
     toolVersion = "1.0.0-RC14"
     input = files("src/main/kotlin")
     filters = ".*/resources/.*,.*/build/.*"
+}
+
+jacoco {
+    toolVersion = "0.8.3"
 }
 
 /** -------------- configure core task -------------- */
@@ -89,6 +95,7 @@ tasks.withType<Test> {
             events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
         }
     }
+    useJUnitPlatform()
 }
 
 /** -------------- dependencies management -------------- */

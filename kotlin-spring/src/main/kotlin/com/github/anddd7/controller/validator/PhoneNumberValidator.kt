@@ -17,6 +17,7 @@ annotation class CheckPhoneNumber(
     val payload: Array<KClass<out Payload>> = []
 )
 
+@SuppressWarnings("MagicNumber")
 class PhoneNumberValidator : ConstraintValidator<CheckPhoneNumber, PhoneNumber> {
     private val logger = LoggerFactory.getLogger(this.javaClass)
 

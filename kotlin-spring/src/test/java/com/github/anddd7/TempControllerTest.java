@@ -93,7 +93,7 @@ class TempControllerTest {
             .content(objectMapper.writeValueAsString(requestBody))
     ).andExpect(status().isBadRequest())
         // moreDescription, name, age, email, phone, phone.areaCode, phone.number
-        .andExpect(jsonPath("$.length()").value(7))
+        .andExpect(jsonPath("$.errors.length()").value(7))
         .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
     /*
     [
