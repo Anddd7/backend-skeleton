@@ -5,15 +5,14 @@ features:
 -[x] 登录校验, security
   - [ ] JWT
   - [ ] OAuth: 多client
--[ ] Cache
+-[x] Spring Cache: method level
 -[x] field validation
   - [x] complex model validation
--[ ] redis
 -[x] integration test,jpa test, unit test, mockk, assertj
 -[ ] logging
   - [ ] DB audit logging with MDC
-  - [ ] request/response logging
-  - [ ] security logging
+  - [x] request/response logging - once request filter
+  - [x] security logging - debug logging on
 -[x] jpa, ~~mybatis,~~ hibernate
   - hibernate: More suitable object-oriented, modeling, DDD
   - mybatis: Only use it if you have a lot of join/union/other complex DB operation

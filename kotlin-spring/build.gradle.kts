@@ -120,6 +120,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     testImplementation("org.springframework.security:spring-security-test")
 
+    // jsr107 cache
+    implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("javax.cache:cache-api")
+    implementation("org.ehcache:ehcache")
+
     // jackson extension
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
 
