@@ -18,7 +18,8 @@ features:
   - mybatis: Only use it if you have a lot of join/union/other complex DB operation
   - [Hibernate vs MyBatis](https://www.zhihu.com/question/21104468),
   Hibernate is more advantageous than mybatis in most of scenario.
--[ ] hibernate cache
+  - [ ] hibernate cache: second level 
 -[x] jacoco, ~~ktlint,~~ detekt
   - [x] detekt include most of features of ktlint, idea also provides good lint.
 -[x] exception, http status, handler
+-[ ] contract testing with wiremock

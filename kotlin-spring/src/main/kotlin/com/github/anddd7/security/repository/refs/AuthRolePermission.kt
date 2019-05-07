@@ -1,7 +1,7 @@
-package com.github.anddd7.repository.refs
+package com.github.anddd7.security.repository.refs
 
-import com.github.anddd7.model.auth.AuthPermission
-import com.github.anddd7.model.auth.AuthRole
+import com.github.anddd7.security.model.AuthPermission
+import com.github.anddd7.security.model.AuthRole
 import java.io.Serializable
 import java.time.LocalDateTime
 import javax.persistence.Column

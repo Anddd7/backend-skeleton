@@ -1,6 +1,6 @@
 package com.github.anddd7.controller
 
-import com.github.anddd7.model.AuthUserPrincipal
+import com.github.anddd7.dto.AuthUserPrincipal
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder

@@ -1,7 +1,7 @@
-package com.github.anddd7.repository
+package com.github.anddd7.security.repository
 
 import com.github.anddd7.SQLScript
-import com.github.anddd7.model.auth.PermissionCode
+import com.github.anddd7.security.model.PermissionCode
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

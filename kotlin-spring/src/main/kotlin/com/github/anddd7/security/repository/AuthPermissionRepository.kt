@@ -1,7 +1,6 @@
-package com.github.anddd7.repository
+package com.github.anddd7.security.repository
 
-import com.github.anddd7.model.auth.AuthPermission
-import com.github.anddd7.model.auth.AuthRole
+import com.github.anddd7.security.model.AuthPermission
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

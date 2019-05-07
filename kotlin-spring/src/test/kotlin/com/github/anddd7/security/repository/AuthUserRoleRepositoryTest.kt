@@ -1,4 +1,4 @@
-package com.github.anddd7.repository
+package com.github.anddd7.security.repository
 
 import com.github.anddd7.SQLScript
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase

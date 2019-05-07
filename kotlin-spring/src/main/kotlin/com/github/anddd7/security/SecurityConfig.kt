@@ -1,6 +1,6 @@
-package com.github.anddd7.configuration
+package com.github.anddd7.security
 
-import com.github.anddd7.service.AuthorizationService
+import com.github.anddd7.security.service.AuthorizationService
 import com.github.anddd7.service.EnvironmentProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -35,7 +35,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
-            .authorizeRequests().mvcMatchers("/api/**").authenticated()
+            .authorizeRequests().mvcMatchers("/api/**")
+            .authenticated()
             .and()
             .logout()
     }

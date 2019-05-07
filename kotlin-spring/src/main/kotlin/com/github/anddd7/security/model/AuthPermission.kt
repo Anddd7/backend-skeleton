@@ -1,9 +1,9 @@
-package com.github.anddd7.model.auth
+package com.github.anddd7.security.model
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.ObjectIdGenerators
-import com.github.anddd7.repository.refs.AuthRolePermission
+import com.github.anddd7.security.repository.refs.AuthRolePermission
 import org.springframework.security.core.GrantedAuthority
 import javax.persistence.Column
 import javax.persistence.Entity

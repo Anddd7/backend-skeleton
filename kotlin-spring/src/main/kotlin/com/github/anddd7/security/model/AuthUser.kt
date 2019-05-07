@@ -1,4 +1,4 @@
-package com.github.anddd7.model.auth
+package com.github.anddd7.security.model
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo
 import com.fasterxml.jackson.annotation.ObjectIdGenerators

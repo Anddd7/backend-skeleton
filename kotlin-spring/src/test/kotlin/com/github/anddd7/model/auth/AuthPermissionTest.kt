@@ -1,5 +1,7 @@
 package com.github.anddd7.model.auth
 
+import com.github.anddd7.security.model.AuthPermission
+import com.github.anddd7.security.model.PermissionCode
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

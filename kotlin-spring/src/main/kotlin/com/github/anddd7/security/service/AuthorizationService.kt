@@ -1,7 +1,7 @@
-package com.github.anddd7.service
+package com.github.anddd7.security.service
 
-import com.github.anddd7.model.AuthUserPrincipal
-import com.github.anddd7.repository.AuthUserRepository
+import com.github.anddd7.dto.AuthUserPrincipal
+import com.github.anddd7.security.repository.AuthUserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
