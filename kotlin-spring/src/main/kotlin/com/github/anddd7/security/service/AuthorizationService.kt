@@ -1,6 +1,6 @@
 package com.github.anddd7.security.service
 
-import com.github.anddd7.dto.AuthUserPrincipal
+import com.github.anddd7.security.model.AuthUserPrincipal
 import com.github.anddd7.security.repository.AuthUserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

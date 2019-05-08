@@ -1,6 +1,5 @@
-package com.github.anddd7.dto
+package com.github.anddd7.security.model
 
-import com.github.anddd7.security.model.AuthUser
 import org.springframework.security.core.userdetails.UserDetails
 
 data class AuthUserPrincipal(private val authUser: AuthUser) : UserDetails {

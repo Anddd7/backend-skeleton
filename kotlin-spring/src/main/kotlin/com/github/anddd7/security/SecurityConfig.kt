@@ -2,6 +2,7 @@ package com.github.anddd7.security
 
 import com.github.anddd7.security.service.AuthorizationService
 import com.github.anddd7.service.EnvironmentProvider
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -18,10 +19,20 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 class SecurityConfig : WebSecurityConfigurerAdapter() {
+    private val log = LoggerFactory.getLogger(this.javaClass)
+
     @Autowired
     private lateinit var authorizationService: AuthorizationService
     @Autowired
     private lateinit var environmentProvider: EnvironmentProvider
+
+    private val jwtConfig = JWTConfig().apply {
+        log.debug(
+            "Generate key pair: \n{}\n{}",
+            this.keyPair.publicKeyString(),
+            this.keyPair.privateKeyString()
+        )
+    }
 
     override fun configure(web: WebSecurity) {
         web.ignoring().antMatchers("/favicon.ico")
@@ -38,11 +49,11 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             .authorizeRequests().mvcMatchers("/api/**")
             .authenticated()
             .and()
+            .addFilter(JWTAuthenticationFilter(jwtConfig,authenticationManager()))
+            .addFilter(JWTAuthorizationFilter(jwtConfig, authenticationManager()))
             .logout()
     }
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
-    override fun authenticationManager(): AuthenticationManager {
-        return super.authenticationManager()
-    }
+    override fun authenticationManager(): AuthenticationManager = super.authenticationManager()
 }

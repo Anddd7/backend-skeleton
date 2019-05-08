@@ -150,6 +150,9 @@ dependencies {
     // utils
     implementation("com.google.guava:guava:27.0.1-jre")
 
+    // jwt
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+
     // junit5
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
 
