@@ -29,8 +29,8 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     private val jwtConfig = JWTConfig().apply {
         log.debug(
             "Generate key pair: \n{}\n{}",
-            this.keyPair.publicKeyString(),
-            this.keyPair.privateKeyString()
+            this.keyPair.publicKeyString,
+            this.keyPair.privateKeyString
         )
     }
 
@@ -49,7 +49,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
             .authorizeRequests().mvcMatchers("/api/**")
             .authenticated()
             .and()
-            .addFilter(JWTAuthenticationFilter(jwtConfig,authenticationManager()))
+            .addFilter(JWTAuthenticationFilter(jwtConfig, authenticationManager()))
             .addFilter(JWTAuthorizationFilter(jwtConfig, authenticationManager()))
             .logout()
     }
