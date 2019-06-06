@@ -5,5 +5,6 @@ import java.util.UUID
 data class OrderDAO(
     val id: UUID,
     val productIds: List<UUID>,
-    val receiptId: UUID
+    // join
+    val receipt: ReceiptDAO?
 )
