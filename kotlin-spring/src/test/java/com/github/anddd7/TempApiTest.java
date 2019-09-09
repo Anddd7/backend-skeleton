@@ -7,28 +7,38 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-@IntegrationTesting
-class TempControllerTest {
+@ActiveProfiles("test")
+@SpringBootTest
+@AutoConfigureMockMvc
+@AutoConfigureTestDatabase
+@AutoConfigureEmbeddedDatabase(provider = DatabaseProvider.DOCKER)
+class TempApiTest {
 
   @Autowired
   private MockMvc mvc;
 
   @Test
-  void shouldReturnVersion() throws Exception {
+  void should_Return_Version() throws Exception {
     mvc.perform(get("/temp/version"))
         .andExpect(content().string("v0.0.1"));
   }
 
   @Test
-  void shouldReturnHealthyInfo() throws Exception {
+  void should_Return_Healthy_Info() throws Exception {
     mvc.perform(get("/temp/ping"))
         .andExpect(jsonPath("$.version").value("v0.0.1"))
         .andExpect(jsonPath("$.active").value("ok"));
@@ -38,7 +48,7 @@ class TempControllerTest {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   @Test
-  void shouldPassValidationOfRequestParametersAndBody() throws Exception {
+  void should_Pass_Validation_Of_Request_Parameters_And_Body() throws Exception {
     Map<String, Object> phone = new HashMap<>();
     phone.put("areaCode", "86");
     phone.put("number", "12345678901");
@@ -69,54 +79,5 @@ class TempControllerTest {
             .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(objectMapper.writeValueAsString(requestBody))
     ).andExpect(status().isOk());
-  }
-
-  @Test
-  void shouldGotValidationError_WhileRequestParametersOrBodyIsInvalid() throws Exception {
-    Map<String, Object> phone = new HashMap<>();
-    phone.put("areaCode", "0");
-    phone.put("number", "1");
-
-    Map<String, Object> userInfo = new HashMap<>();
-    userInfo.put("name", "");
-    userInfo.put("age", 8);
-    userInfo.put("email", "liaoad_space");
-    userInfo.put("phone", phone);
-
-    Map<String, Object> moreDescription = new HashMap<>();
-    moreDescription.put("title", "");
-    moreDescription.put("content", "");
-
-    Map<String, Integer> ranges = new HashMap<>();
-    ranges.put("first", 3);
-    ranges.put("second", 2);
-
-    Map<String, Object> requestBody = new HashMap<>();
-    requestBody.put("userInfo", userInfo);
-    requestBody.put("moreDescription", moreDescription);
-    requestBody.put("ranges", Collections.singletonList(ranges));
-
-    mvc.perform(
-        post("/temp/validate")
-            .param("correlationId", "")
-            .param("operations", "")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content(objectMapper.writeValueAsString(requestBody))
-    ).andExpect(status().isBadRequest())
-        // moreDescription, name, age, email, phone, phone.areaCode, phone.number
-        .andExpect(jsonPath("$.errors.length()").value(8))
-        .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
-    /*
-    [
-      "userInfo.age: must be between 9 and 99",
-      "userInfo.email: must be a well-formed email address",
-      "moreDescription: At least one of title and content should be non-empty",
-      "userInfo.phone.areaCode: must match \"(-)?\\d{2,3}\"",
-      "userInfo.name: must not be blank",
-      "userInfo: username can't be null or `unknown`",
-      "userInfo.phone.number: size must be between 6 and 20",
-      "ranges[0]: Range is invalid"
-    ]
-    */
   }
 }

@@ -157,7 +157,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
 
     // testing
-    testImplementation("io.mockk:mockk:1.8.13")
+    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("com.ninja-squad:springmockk:1.1.2")
     testImplementation("org.assertj:assertj-core:3.11.1")
 }
 
