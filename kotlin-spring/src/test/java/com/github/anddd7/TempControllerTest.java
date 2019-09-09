@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -52,9 +53,14 @@ class TempControllerTest {
     moreDescription.put("title", "title");
     moreDescription.put("content", "more description should more than 10");
 
+    Map<String, Integer> ranges = new HashMap<>();
+    ranges.put("first", 1);
+    ranges.put("second", 2);
+
     Map<String, Object> requestBody = new HashMap<>();
     requestBody.put("userInfo", userInfo);
     requestBody.put("moreDescription", moreDescription);
+    requestBody.put("ranges", Collections.singletonList(ranges));
 
     mvc.perform(
         post("/temp/validate")
@@ -81,9 +87,14 @@ class TempControllerTest {
     moreDescription.put("title", "");
     moreDescription.put("content", "");
 
+    Map<String, Integer> ranges = new HashMap<>();
+    ranges.put("first", 3);
+    ranges.put("second", 2);
+
     Map<String, Object> requestBody = new HashMap<>();
     requestBody.put("userInfo", userInfo);
     requestBody.put("moreDescription", moreDescription);
+    requestBody.put("ranges", Collections.singletonList(ranges));
 
     mvc.perform(
         post("/temp/validate")
@@ -93,7 +104,7 @@ class TempControllerTest {
             .content(objectMapper.writeValueAsString(requestBody))
     ).andExpect(status().isBadRequest())
         // moreDescription, name, age, email, phone, phone.areaCode, phone.number
-        .andExpect(jsonPath("$.errors.length()").value(7))
+        .andExpect(jsonPath("$.errors.length()").value(8))
         .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
     /*
     [
@@ -103,7 +114,8 @@ class TempControllerTest {
       "userInfo.phone.areaCode: must match \"(-)?\\d{2,3}\"",
       "userInfo.name: must not be blank",
       "userInfo: username can't be null or `unknown`",
-      "userInfo.phone.number: size must be between 6 and 20"
+      "userInfo.phone.number: size must be between 6 and 20",
+      "ranges[0]: Range is invalid"
     ]
     */
   }

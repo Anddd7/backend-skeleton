@@ -2,6 +2,7 @@ package com.github.anddd7.controller
 
 import com.github.anddd7.controller.validator.CheckMoreDescription
 import com.github.anddd7.controller.validator.CheckPhoneNumber
+import com.github.anddd7.controller.validator.CheckRange
 import com.github.anddd7.controller.validator.CheckUserInfo
 import com.github.anddd7.service.TempService
 import org.hibernate.validator.constraints.Range
@@ -62,7 +63,9 @@ data class ValidateRequest(
     @field:CheckUserInfo // Call `UserInfoValidator` to validate this
     val userInfo: UserInfo,
     @field:CheckMoreDescription
-    val moreDescription: MoreDescription
+    val moreDescription: MoreDescription,
+    @field:Valid
+    val ranges: List<RangeData>
 )
 
 data class UserInfo(
@@ -88,3 +91,6 @@ data class MoreDescription(
     val title: String,
     val content: String
 )
+
+@CheckRange
+data class RangeData(val first: Int, val second: Int)

@@ -1,7 +1,5 @@
 package com.github.anddd7.order.model
 
-import java.util.Optional
-
 interface ModelMapper<T, M, A> {
 
     fun toDTO(model: M): T

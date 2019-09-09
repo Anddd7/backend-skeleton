@@ -8,6 +8,7 @@ features:
 -[x] Spring Cache: method level
 -[x] field validation
   - [x] complex model validation
+  - [ ] mess validation
 -[x] integration test,jpa test, unit test, mockk, assertj
 -[ ] logging
   - [ ] DB audit logging with MDC
@@ -23,3 +24,4 @@ features:
   - [x] detekt include most of features of ktlint, idea also provides good lint.
 -[x] exception, http status, handler
 -[ ] contract testing with wiremock
+-[ ] model mapping
