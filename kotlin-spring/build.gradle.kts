@@ -50,7 +50,7 @@ plugins {
     // base on `kotlin-noarg`, generate default method for entity
     id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
 
-    id("io.gitlab.arturbosch.detekt") version "1.0.0-RC14"
+    id("io.gitlab.arturbosch.detekt") version "1.3.0"
 }
 
 // apply dependency plugin form spring-boot plugin
@@ -71,9 +71,8 @@ flyway {
 }
 
 detekt {
-    toolVersion = "1.0.0-RC14"
+    toolVersion = "1.1.1"
     input = files("src/main/kotlin")
-    filters = ".*/resources/.*,.*/build/.*"
 }
 
 jacoco {
@@ -96,6 +95,11 @@ tasks.withType<Test> {
         }
     }
     useJUnitPlatform()
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+    // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+    // exclude("**/special/package/internal/**") // but exclude our legacy internal package
 }
 
 /** -------------- dependencies management -------------- */
