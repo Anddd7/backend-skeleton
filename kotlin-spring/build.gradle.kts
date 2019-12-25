@@ -27,7 +27,7 @@ buildscript {
 
 // import plugins into this project
 plugins {
-    val kotlinVersion = "1.3.21"
+    val kotlinVersion = "1.3.61"
 
     // core plugins, which is already include in plugin dependencies spec
     java
