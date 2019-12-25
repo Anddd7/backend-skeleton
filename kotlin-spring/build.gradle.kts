@@ -62,7 +62,7 @@ idea {
     module {
         outputDir = file("$buildDir/classes/main")
         testOutputDir = file("$buildDir/classes/test")
-        jdkName = "1.8"
+        jdkName = "11"
     }
 }
 
@@ -83,9 +83,10 @@ jacoco {
 
 // configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
 tasks.withType<KotlinCompile> {
-    kotlinOptions.apiVersion = "1.3"
-    kotlinOptions.languageVersion = "1.3"
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
 }
 
 tasks.withType<Test> {
