@@ -141,7 +141,7 @@ dependencies {
     testImplementation("io.zonky.test:embedded-database-spring-test:1.4.1")
     testRuntimeOnly("org.testcontainers:postgresql:1.8.3")
 
-    // hibernate x postgresql'sjsonb
+    // hibernate x postgresql's jsonb
     implementation("com.vladmihalcea:hibernate-types-52:2.3.2")
 
     // logstash extension for logback
