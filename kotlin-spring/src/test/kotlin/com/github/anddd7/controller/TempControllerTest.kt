@@ -1,25 +1,23 @@
 package com.github.anddd7.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.anddd7.controller.TempController
 import com.github.anddd7.service.TempService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import java.util.HashMap
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import java.util.*
 
 @ActiveProfiles("test")
-@WebMvcTest(TempController::class, secure = false)
+@WebMvcTest(TempController::class, excludeAutoConfiguration = [SecurityAutoConfiguration::class])
 internal class TempControllerTest {
 
     @Autowired
@@ -35,7 +33,7 @@ internal class TempControllerTest {
         every { tempService.getVersion() } returns "v0.0.1"
 
         mvc.perform(get("/temp/version"))
-            .andExpect(content().string("v0.0.1"))
+                .andExpect(content().string("v0.0.1"))
     }
 
     @Test
@@ -43,8 +41,8 @@ internal class TempControllerTest {
         every { tempService.getVersion() } returns "v0.0.1"
 
         mvc.perform(get("/temp/ping"))
-            .andExpect(jsonPath("$.version").value("v0.0.1"))
-            .andExpect(jsonPath("$.active").value("ok"))
+                .andExpect(jsonPath("$.version").value("v0.0.1"))
+                .andExpect(jsonPath("$.active").value("ok"))
     }
 
     @Test
@@ -73,11 +71,11 @@ internal class TempControllerTest {
         requestBody["ranges"] = listOf<Map<String, Int>>(ranges)
 
         mvc.perform(
-            post("/temp/validate")
-                .param("correlationId", "AB12976551827EH1")
-                .param("operations", "validate", "save", "test")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsString(requestBody))
+                post("/temp/validate")
+                        .param("correlationId", "AB12976551827EH1")
+                        .param("operations", "validate", "save", "test")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsString(requestBody))
         ).andExpect(status().isOk)
     }
 
@@ -107,15 +105,15 @@ internal class TempControllerTest {
         requestBody["ranges"] = listOf<Map<String, Int>>(ranges)
 
         mvc.perform(
-            post("/temp/validate")
-                .param("correlationId", "")
-                .param("operations", "")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsString(requestBody))
+                post("/temp/validate")
+                        .param("correlationId", "")
+                        .param("operations", "")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(objectMapper.writeValueAsString(requestBody))
         ).andExpect(status().isBadRequest)
-            // moreDescription, name, age, email, phone, phone.areaCode, phone.number
-            .andExpect(jsonPath("$.errors.length()").value(8))
-            .andDo { result -> println(result.response.contentAsString) }
+                // moreDescription, name, age, email, phone, phone.areaCode, phone.number
+                .andExpect(jsonPath("$.errors.length()").value(8))
+                .andDo { result -> println(result.response.contentAsString) }
         /*
        [
          "userInfo.age: must be between 9 and 99",

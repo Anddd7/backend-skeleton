@@ -40,12 +40,12 @@ plugins {
      * binary(external) plugins, provide id and version to resolve it
      * base plugin for spring-boot, provide plugins and tasks
      */
-    id("org.springframework.boot") version "2.1.1.RELEASE"
+    id("org.springframework.boot") version "2.2.2.RELEASE"
 
     // [spring support](https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support)
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
 
-    id("org.flywaydb.flyway") version "5.2.4"
+    id("org.flywaydb.flyway") version "6.1.3"
 
     // base on `kotlin-noarg`, generate default method for entity
     id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
@@ -84,7 +84,7 @@ jacoco {
 // configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+//        freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
 }
@@ -131,7 +131,7 @@ dependencies {
     implementation("org.ehcache:ehcache")
 
     // jackson extension
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.+")
 
     // swagger
     implementation("io.springfox:springfox-swagger2:2.9.2")
@@ -143,8 +143,8 @@ dependencies {
     // postgres
     runtimeOnly("org.postgresql:postgresql")
     // test with postgres
-    testImplementation("io.zonky.test:embedded-database-spring-test:1.4.1")
-    testRuntimeOnly("org.testcontainers:postgresql:1.8.3")
+    testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
+    testRuntimeOnly("org.testcontainers:postgresql:1.12.8")
 
     // hibernate x postgresql's jsonb
     implementation("com.vladmihalcea:hibernate-types-52:2.3.2")
@@ -153,7 +153,7 @@ dependencies {
     runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
 
     // utils
-    implementation("com.google.guava:guava:27.0.1-jre")
+    implementation("com.google.guava:guava:28.1-jre")
 
     // jwt
     implementation("io.jsonwebtoken:jjwt:0.9.1")
@@ -163,8 +163,8 @@ dependencies {
 
     // testing
     testImplementation("io.mockk:mockk:1.9.3")
-    testImplementation("com.ninja-squad:springmockk:1.1.2")
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("com.ninja-squad:springmockk:2.0.0")
+    testImplementation("org.assertj:assertj-core:3.14.0")
 }
 
 /** -------------- new task -------------- */
