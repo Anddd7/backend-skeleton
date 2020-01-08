@@ -144,7 +144,7 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
     // test with postgres
     testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
-    testRuntimeOnly("org.testcontainers:postgresql:1.12.8")
+    testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
 
     // hibernate x postgresql's jsonb
     implementation("com.vladmihalcea:hibernate-types-52:2.3.2")

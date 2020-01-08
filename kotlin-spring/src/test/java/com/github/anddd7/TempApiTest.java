@@ -76,7 +76,7 @@ class TempApiTest {
         post("/temp/validate")
             .param("correlationId", "AB12976551827EH1")
             .param("operations", "validate", "save", "test")
-            .contentType(MediaType.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(requestBody))
     ).andExpect(status().isOk());
   }
