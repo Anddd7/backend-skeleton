@@ -1,11 +1,17 @@
 package com.github.anddd7.security
 
-import com.github.anddd7.security.service.AuthorizationService
 import com.github.anddd7.service.EnvironmentProvider
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+import org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -14,15 +20,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.userdetails.UserDetailsService
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Profile("local")
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
     @Autowired
-    private lateinit var authorizationService: AuthorizationService
+    private lateinit var userDetailsService: UserDetailsService
     @Autowired
     private lateinit var environmentProvider: EnvironmentProvider
 
@@ -41,7 +49,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(authorizationService)
+        auth.userDetailsService(userDetailsService)
     }
 
     override fun configure(http: HttpSecurity) {

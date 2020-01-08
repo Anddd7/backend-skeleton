@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cache.CacheManager
 import org.springframework.test.context.ActiveProfiles
 
-@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureEmbeddedDatabase
 internal class CacheableServiceTest {

@@ -82,7 +82,7 @@ jacoco {
 /** -------------- configure core task -------------- */
 
 // configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
-tasks.withType<KotlinCompile> {
+tasks.withType<KotlinCompile>().all {
     kotlinOptions {
 //        freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
