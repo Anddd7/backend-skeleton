@@ -5,10 +5,13 @@
   <springProfile name="local,test">
     <logger level="DEBUG" name="com.github.anddd7"/>
 
+<!--    <logger level="DEBUG" name="org.springframework.web.server.adapter.HttpWebHandlerAdapter"/>-->
+
     <logger level="INFO" name="org.hibernate.SQL"/>
     <logger level="INFO" name="org.hibernate.type.descriptor.sql.BasicBinder"/>
 
-    <root level="INFO">
+<!--    <root level="INFO">-->
+    <root level="DEBUG">"
       <appender-ref ref="STDOUT"/>
     </root>
   </springProfile>

@@ -8,14 +8,19 @@ import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
-@Component
+/**
+ * just enable debug log for reactor
+ */
+//@Component
 class RequestLoggingFilter : WebFilter {
   private val log = LoggerFactory.getLogger(this.javaClass)
 
-  override fun filter(exchange: ServerWebExchange, chain: WebFilterChain) =
-      exchange.also { it.logRequestMessage() }
-          .also { it.logResponseMessage() }
-          .run(chain::filter)
+  override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
+    return exchange
+        .also { it.logRequestMessage() }
+        .also { it.logResponseMessage() }
+        .run(chain::filter)
+  }
 
   fun ServerWebExchange.logRequestMessage() {
     listOfNotNull(
