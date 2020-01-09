@@ -43,6 +43,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     // spring test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -51,6 +52,7 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("com.ninja-squad:springmockk:1.1.3")
+    testImplementation("org.springframework.security:spring-security-test")
 
     // flyway
     runtimeOnly("org.flywaydb:flyway-core")
@@ -70,6 +72,9 @@ dependencies {
     testImplementation("io.mockk:mockk:1.9.3")
     testImplementation("org.assertj:assertj-core:3.14.0")
     testImplementation("io.projectreactor:reactor-test")
+
+    // jwt
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
 }
 
 idea {

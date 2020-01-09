@@ -11,16 +11,20 @@ import java.util.stream.Collectors
 @RequestMapping
 class HelloController {
 
-    private val log = LogFactory.getLog(this.javaClass)
+  private val log = LogFactory.getLog(this.javaClass)
+  private val delay: Long = 1000
 
-    @RequestMapping("/hello")
-    fun hello() = Flux
-            .merge(
-                    Mono.just("Hello").doOnNext { Thread.sleep(1000) },
-                    Mono.just("world").doOnNext { Thread.sleep(1000) }
-            )
-            .collect(Collectors.joining(", "))
-            .doOnSuccess {
-                log.debug(it)
-            }
+  @RequestMapping("/hello")
+  fun hello(): Mono<String> {
+
+    return Flux
+        .merge(
+            Mono.just("Hello").doOnNext { Thread.sleep(delay) },
+            Mono.just("world").doOnNext { Thread.sleep(delay) }
+        )
+        .collect(Collectors.joining(", "))
+        .doOnSuccess {
+          log.debug(it)
+        }
+  }
 }

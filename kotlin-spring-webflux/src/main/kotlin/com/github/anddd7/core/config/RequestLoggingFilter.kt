@@ -10,43 +10,43 @@ import reactor.core.publisher.Mono
 
 @Component
 class RequestLoggingFilter : WebFilter {
-    private val log = LoggerFactory.getLogger(this.javaClass)
+  private val log = LoggerFactory.getLogger(this.javaClass)
 
-    override fun filter(exchange: ServerWebExchange, chain: WebFilterChain) =
-            exchange.also { it.logRequestMessage() }
-                    .also { it.logResponseMessage() }
-                    .run(chain::filter)
+  override fun filter(exchange: ServerWebExchange, chain: WebFilterChain) =
+      exchange.also { it.logRequestMessage() }
+          .also { it.logResponseMessage() }
+          .run(chain::filter)
 
-    fun ServerWebExchange.logRequestMessage() {
-        listOfNotNull(
-                request.method,
-                request.uri.path,
-                request.headers.accept.takeIf { it.isNotEmpty() }
-                        ?.run { HttpHeaders.ACCEPT + ": " + this },
-                request.headers.contentType
-                        ?.run { HttpHeaders.CONTENT_TYPE + ": " + this }
-        )
-                .joinToString(" ", prefix = ">>> ")
-                .run(log::info)
+  fun ServerWebExchange.logRequestMessage() {
+    listOfNotNull(
+        request.method,
+        request.uri.path,
+        request.headers.accept.takeIf { it.isNotEmpty() }
+            ?.run { HttpHeaders.ACCEPT + ": " + this },
+        request.headers.contentType
+            ?.run { HttpHeaders.CONTENT_TYPE + ": " + this }
+    )
+        .joinToString(" ", prefix = ">>> ")
+        .run(log::info)
+  }
+
+
+  fun ServerWebExchange.logResponseMessage() {
+    response.beforeCommit {
+      listOfNotNull(
+          request.method,
+          request.uri.path,
+          response.statusCode
+              ?.run { "HTTP${value()} $reasonPhrase" },
+          request.headers.contentType
+              ?.run { HttpHeaders.CONTENT_TYPE + ": " + this }
+      )
+          .joinToString(" ", prefix = "<<< ")
+          .run(log::info)
+
+      Mono.empty()
     }
-
-
-    fun ServerWebExchange.logResponseMessage() {
-        response.beforeCommit {
-            listOfNotNull(
-                    request.method,
-                    request.uri.path,
-                    response.statusCode
-                            ?.run { "HTTP${value()} $reasonPhrase" },
-                    request.headers.contentType
-                            ?.run { HttpHeaders.CONTENT_TYPE + ": " + this }
-            )
-                    .joinToString(" ", prefix = "<<< ")
-                    .run(log::info)
-
-            Mono.empty()
-        }
-    }
+  }
 }
 
 

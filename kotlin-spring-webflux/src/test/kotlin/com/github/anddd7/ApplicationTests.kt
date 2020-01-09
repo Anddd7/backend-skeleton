@@ -10,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 @AutoConfigureEmbeddedDatabase(provider = AutoConfigureEmbeddedDatabase.DatabaseProvider.DOCKER)
 class ApplicationTests {
 
-    @Test
-    fun contextLoads() {
-    }
-
+  @Test
+  fun contextLoads() {
+  }
 }
