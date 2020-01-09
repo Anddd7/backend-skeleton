@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import java.security.Principal
 import java.util.stream.Collectors
 
 @RestController
@@ -12,19 +13,14 @@ import java.util.stream.Collectors
 class HelloController {
 
   private val log = LogFactory.getLog(this.javaClass)
-  private val delay: Long = 1000
 
   @RequestMapping("/hello")
-  fun hello(): Mono<String> {
-
-    return Flux
-        .merge(
-            Mono.just("Hello").doOnNext { Thread.sleep(delay) },
-            Mono.just("world").doOnNext { Thread.sleep(delay) }
-        )
-        .collect(Collectors.joining(", "))
-        .doOnSuccess {
-          log.debug(it)
-        }
-  }
+  fun hello(principal: Mono<Principal>): Mono<String> =
+      Flux
+          .concat(
+              Mono.just("Hello"),
+              principal.map { it.name }
+          )
+          .collect(Collectors.joining(", "))
+          .doOnSuccess(log::debug)
 }

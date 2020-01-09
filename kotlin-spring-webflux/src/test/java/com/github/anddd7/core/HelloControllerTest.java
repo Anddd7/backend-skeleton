@@ -22,6 +22,6 @@ public class HelloControllerTest {
         .exchange()
         .expectStatus().isOk()
         .expectBody(String.class)
-        .isEqualTo("Hello, world");
+        .isEqualTo("Hello, user");
   }
 }
