@@ -17,18 +17,20 @@ class UserService(
 ) : ReactiveUserDetailsService {
   private val log = LoggerFactory.getLogger(this.javaClass)
 
-  private val users = listOf(
-      User
-          .withUsername("user")
-          .password(passwordEncoder.encode("password"))
-          .roles("USER")
-          .build(),
-      User
-          .withUsername("admin")
-          .password(passwordEncoder.encode("admin"))
-          .roles("ADMIN")
-          .build()
-  )
+  private val users: List<UserDetails> by lazy {
+    listOf(
+        User
+            .withUsername("user")
+            .password(passwordEncoder.encode("password"))
+            .roles("USER")
+            .build(),
+        User
+            .withUsername("admin")
+            .password(passwordEncoder.encode("admin"))
+            .roles("ADMIN")
+            .build()
+    )
+  }
 
   override fun findByUsername(username: String?) =
       Mono

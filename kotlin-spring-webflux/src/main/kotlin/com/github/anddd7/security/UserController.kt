@@ -10,8 +10,9 @@ import java.security.Principal
 
 @RestController
 @RequestMapping("/api/auth")
-class UserController(private val userService: UserService) {
-
+class UserController(
+    private val userService: UserService
+) {
   @GetMapping
   fun currentUserName(principal: Mono<Principal>): Mono<String> = principal.map(Principal::getName)
 
