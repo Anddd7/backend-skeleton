@@ -1,5 +1,6 @@
 package com.github.anddd7.security.service
 
+import com.github.anddd7.security.repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
@@ -13,7 +14,8 @@ import java.security.Principal
 class UserService(
     passwordEncoder: PasswordEncoder,
     private val roleService: RoleService,
-    private val permissionService: PermissionService
+    private val permissionService: PermissionService,
+    private val userRepository: UserRepository
 ) : ReactiveUserDetailsService {
   private val log = LoggerFactory.getLogger(this.javaClass)
 
@@ -41,15 +43,24 @@ class UserService(
 
   @SuppressWarnings("SpreadOperator")
   fun getUserInfo(principal: Principal): Mono<UserDetails> {
+    log.debug("receive the request")
+
+    val user = Mono.fromCallable {
+      log.debug("call repository")
+
+      userRepository.findAll().first()
+    }
     val roles = roleService.getRoles(principal.name)
     val permissions = permissionService.getPermissions(principal.name)
 
-    return Mono.zip(roles, permissions)
+    log.debug("return the mono of user")
+
+    return Mono.zip(user, roles, permissions)
         .map {
-          User.withUsername(principal.name)
+          User.withUsername(it.t1.name)
               .password("********")
-              .roles(*it.t1.toTypedArray())
-              .authorities(*it.t2.toTypedArray())
+              .roles(*it.t2.toTypedArray())
+              .authorities(*it.t3.toTypedArray())
               .build()
         }
   }

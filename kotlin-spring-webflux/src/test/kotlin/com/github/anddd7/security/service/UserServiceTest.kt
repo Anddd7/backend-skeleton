@@ -1,5 +1,7 @@
 package com.github.anddd7.security.service
 
+import com.github.anddd7.security.model.AuthUser
+import com.github.anddd7.security.repository.UserRepository
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -24,6 +26,8 @@ internal class UserServiceTest {
   private lateinit var roleService: RoleService
   @MockK
   private lateinit var permissionService: PermissionService
+  @MockK
+  private lateinit var userRepository: UserRepository
 
   @InjectMockKs
   private lateinit var userService: UserService
@@ -35,6 +39,7 @@ internal class UserServiceTest {
 
   @Test
   fun `should get user info`() {
+    every { userRepository.findAll() } returns listOf(AuthUser(name = "name"))
     every { roleService.getRoles(any()) } returns Mono.just(emptyList())
     every { permissionService.getPermissions(any()) } returns Mono.just(emptyList())
     val principle = mockk<Principal> {
@@ -44,7 +49,7 @@ internal class UserServiceTest {
     val result = userService.getUserInfo(principle)
 
     StepVerifier.create(result)
-        .assertNext { it.username == "user" }
+        .assertNext { it.username == "name" }
         .verifyComplete()
   }
 }

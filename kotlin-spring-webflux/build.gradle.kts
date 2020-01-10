@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
+import org.jetbrains.kotlin.noarg.gradle.NoArgExtension
 
 plugins {
   val kotlinVersion = "1.3.61"
@@ -17,6 +18,7 @@ plugins {
   id("org.springframework.boot") version "2.2.2.RELEASE"
   id("io.spring.dependency-management") version "1.0.8.RELEASE"
   id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+  id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
 
   id("io.gitlab.arturbosch.detekt") version "1.3.0"
 }
@@ -100,6 +102,10 @@ detekt {
 
 jacoco {
   toolVersion = "0.8.3"
+}
+
+configure<NoArgExtension> {
+  annotation("javax.persistence.Entity")
 }
 
 val sourceSets = the<SourceSetContainer>()
