@@ -1,8 +1,10 @@
 package com.github.anddd7.security
 
+import com.github.anddd7.security.model.AuthUser
 import com.github.anddd7.security.service.UserService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
@@ -18,4 +20,10 @@ class UserController(
 
   @GetMapping("/user")
   fun currentUser(principal: Mono<Principal>): Mono<UserDetails> = principal.flatMap(userService::getUserInfo)
+
+  @PostMapping("/user")
+  fun register(username: String): Mono<AuthUser> = userService.register(username)
+
+  @PostMapping("/user/failure")
+  fun registerWithFailre(username: String): Mono<AuthUser> = userService.registerWithFailre(username)
 }

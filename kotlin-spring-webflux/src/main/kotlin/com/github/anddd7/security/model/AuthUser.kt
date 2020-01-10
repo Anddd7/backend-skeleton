@@ -2,6 +2,8 @@ package com.github.anddd7.security.model
 
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.Table
 
@@ -9,8 +11,8 @@ import javax.persistence.Table
 @Table(name = "auth_user")
 data class AuthUser(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-
     @Column(name = "name")
     val name: String
 )

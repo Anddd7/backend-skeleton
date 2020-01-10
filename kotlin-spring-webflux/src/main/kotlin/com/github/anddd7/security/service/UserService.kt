@@ -1,5 +1,7 @@
 package com.github.anddd7.security.service
 
+import com.github.anddd7.security.model.AuthUser
+import com.github.anddd7.security.repository.UserReactiveRepository
 import com.github.anddd7.security.repository.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
@@ -15,7 +17,8 @@ class UserService(
     passwordEncoder: PasswordEncoder,
     private val roleService: RoleService,
     private val permissionService: PermissionService,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val userReactiveRepository: UserReactiveRepository
 ) : ReactiveUserDetailsService {
   private val log = LoggerFactory.getLogger(this.javaClass)
 
@@ -63,5 +66,17 @@ class UserService(
               .authorities(*it.t3.toTypedArray())
               .build()
         }
+  }
+
+  fun register(username: String): Mono<AuthUser> {
+    return Mono.fromCallable {
+      userRepository.save(AuthUser(name = username))
+    }
+  }
+
+  fun registerWithFailre(username: String): Mono<AuthUser> {
+    return Mono.fromCallable {
+      userReactiveRepository.saveAndFailed(AuthUser(name = username))
+    }
   }
 }

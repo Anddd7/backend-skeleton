@@ -92,7 +92,7 @@ idea {
 }
 
 flyway {
-  url = "jdbc:postgresql://localhost:5433/local?user=test&password=test"
+  url = "jdbc:postgresql://localhost:5432/local?user=test&password=test"
 }
 
 detekt {

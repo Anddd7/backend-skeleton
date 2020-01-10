@@ -19,7 +19,9 @@ class SecurityConfig {
 
   @Bean
   fun webSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain =
-      http.authorizeExchange()
+      http
+          .csrf().disable()
+          .authorizeExchange()
           .pathMatchers("/api/*").authenticated()
           .anyExchange().permitAll()
           .and()
