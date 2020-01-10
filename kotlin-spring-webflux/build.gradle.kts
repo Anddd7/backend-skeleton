@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.noarg.gradle.NoArgExtension
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
-import org.jetbrains.kotlin.noarg.gradle.NoArgExtension
 
 plugins {
   val kotlinVersion = "1.3.61"
@@ -81,6 +81,10 @@ dependencies {
 
   // jwt
   implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+  // archiunit
+  testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
+  testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
 }
 
 idea {

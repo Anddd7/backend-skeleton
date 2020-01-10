@@ -1,4 +1,4 @@
-package com.github.anddd7.security.config
+package com.github.anddd7.configuration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -28,11 +28,7 @@ class SecurityConfig {
           .httpBasic(Customizer.withDefaults())
           .build()
 
-
-  /**
-   * mock in-memory user
-   */
-//  @Bean
+  @Bean
   fun userDetailsService(passwordEncoder: PasswordEncoder): MapReactiveUserDetailsService =
       MapReactiveUserDetailsService(
           User

@@ -1,4 +1,4 @@
-package com.github.anddd7.core.config
+package com.github.anddd7.configuration
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.reactive.config.EnableWebFlux
