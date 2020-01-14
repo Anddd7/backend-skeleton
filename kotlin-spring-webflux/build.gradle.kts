@@ -25,8 +25,6 @@ plugins {
 
 group = "com.anddd7"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
-java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
   mavenCentral()
@@ -41,57 +39,55 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
   // spring
+//  implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
-  implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
+  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-  implementation("org.springframework.boot:spring-boot-starter-security")
 
   // spring test
+//  testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(module = "junit")
     exclude(group = "org.mockito")
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
   }
   testImplementation("com.ninja-squad:springmockk:1.1.3")
-  testImplementation("org.springframework.security:spring-security-test")
 
   // junit5
   testImplementation("org.junit.jupiter:junit-jupiter-engine")
 
-  // flyway
-  runtimeOnly("org.flywaydb:flyway-core")
-
-  // postgres
-  runtimeOnly("org.postgresql:postgresql")
-  implementation("com.vladmihalcea:hibernate-types-52:2.3.2")
-
-  // test with postgres
-  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
-  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
-
   // logstash extension for logback
   runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
+
+  // flyway
+  runtimeOnly("org.flywaydb:flyway-core")
 
   // unit test
   testImplementation("io.mockk:mockk:1.9.3")
   testImplementation("org.assertj:assertj-core:3.14.0")
   testImplementation("io.projectreactor:reactor-test")
 
-  // jwt
-  implementation("io.jsonwebtoken:jjwt:0.9.1")
+  // r2bdc
+  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
+  implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
 
-  // archiunit
+  // test with postgres
+  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
+  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
+
+  // archunit
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
 }
 
 idea {
+  project {
+    jdkName = "11"
+  }
   module {
     outputDir = file("$buildDir/classes/main")
     testOutputDir = file("$buildDir/classes/test")
-    jdkName = "11"
   }
 }
 

@@ -5,5 +5,4 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Import
 
 @SpringBootApplication
-@Import(value = [SecurityConfig::class])
 internal class TestApplication
