@@ -10,11 +10,17 @@ Kotlin
 - intellij亲儿子
 - 协程
 
+> Kotlin相对于Java来说, 主要是提供了大量的语法糖, 减少了代码量. 
+  空值检测也是有效的环节了Java NullPointerException的恶心程度.
+  Kotlin Coroutines则是从语法层面, 降低了JVM线程的使用难度.
+  
 Spring WebFlux
 - Spring5核心功能
 - 实现了Reactive Streams
 - 高性能异步I/O
 - Spring小儿子
+
+> WebFlux则是基于Reactive模式, 提供了高性能的响应机制. 结合Spring生态圈和Netty/RxJava等优秀框架. 
 
 ## Prerequisite
 
@@ -25,6 +31,9 @@ Spring WebFlux
 - Spring Boot 基础
 
 ## Kotlin Coroutines
+
+看就完事: [码上开学 - Kotlin指南](https://kaixue.io/)
+Code -> `src/test/kotlin/coroutines/SimpleCoroutineTest`
 
 ## Stream
 
