@@ -33,9 +33,20 @@ Spring WebFlux
 ## Kotlin Coroutines
 
 看就完事: [码上开学 - Kotlin指南](https://kaixue.io/)
-Code -> `src/test/kotlin/coroutines/SimpleCoroutineTest`
+Sample Code -> https://github.com/Anddd7/algorithm-lab/tree/master/leetcode-kotlin/src/test/kotlin/com/github/anddd7/coroutines
 
-## Stream
+## Lambda & Stream
+
+Java8 支持了Lambda, 并且提供了一套Stream API, 简化对集合类的操作
+- Lambda降低了函数式方法的实现难度
+- Stream简化代码的同时, 还提供了并行的处理方式
+    - 不存储数据
+    - 函数式
+    - 延迟操作
+    - 短路操作
+    - 并行
+
+Sample Code -> https://github.com/Anddd7/algorithm-lab/tree/master/algorithm-java/src/main/java/com/github/anddd7/jdk8/stream
 
 ## Reactive Stream & Spring Reactor
 
