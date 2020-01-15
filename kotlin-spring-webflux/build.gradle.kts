@@ -17,13 +17,13 @@ plugins {
 
   id("org.springframework.boot") version "2.2.2.RELEASE"
   id("io.spring.dependency-management") version "1.0.8.RELEASE"
-  id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
+//  id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
   id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
 
   id("io.gitlab.arturbosch.detekt") version "1.3.0"
 }
 
-group = "com.anddd7"
+group = "com.github.anddd7"
 version = "0.0.1-SNAPSHOT"
 
 repositories {
@@ -35,17 +35,20 @@ repositories {
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+  /* integrate kotlin coroutines with reactor */
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-  // spring
+  /* spring */
 //  implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
+  // reactive relational database connector
   implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-  // spring test
+  /* spring test */
 //  testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(module = "junit")

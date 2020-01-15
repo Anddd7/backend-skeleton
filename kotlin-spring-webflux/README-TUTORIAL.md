@@ -60,7 +60,12 @@ Sample Code -> https://github.com/Anddd7/algorithm-lab/tree/master/algorithm-jav
 
 Sample Code -> `src/test/kotlin/reactive`
 
+ref: 
+- java 9 flow : https://www.youtube.com/watch?v=_stAxdjx8qk
+
 ## Spring WebFlux
+
+reactor + netty + spring framework = BOOM!!!
 
 ## Spring Data Reactive
 
