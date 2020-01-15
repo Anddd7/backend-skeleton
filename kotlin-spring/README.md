@@ -1,4 +1,18 @@
-features:
+# Title
+
+introduction
+
+## Lint
+
+## Build
+
+## Test
+
+## Run
+
+## Deploy
+
+## Features:
 -[x] 权限管理: 用户 角色 资源
   - [x] 使用code作为permission主键 instead `id`
   - [x] ~~Add `resource url` mapping to permission, 通过filter自动校验权限~~, 使用annotation
