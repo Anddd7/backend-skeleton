@@ -1,12 +1,12 @@
-package com.github.anddd7.service
+package com.github.anddd7.core
 
+import com.github.anddd7.core.service.CacheableService
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.cache.CacheManager
-import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest
 @AutoConfigureEmbeddedDatabase

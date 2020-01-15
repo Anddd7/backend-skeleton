@@ -1,6 +1,6 @@
 package com.github.anddd7.security
 
-import com.github.anddd7.configuration.JsonUtil
+import com.github.anddd7.core.configuration.JsonUtil
 import com.github.anddd7.security.api.dto.toAuthenticatedUser
 import com.github.anddd7.security.model.AuthUserPrincipal
 import io.jsonwebtoken.Jwts

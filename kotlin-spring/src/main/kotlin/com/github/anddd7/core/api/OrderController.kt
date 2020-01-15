@@ -1,4 +1,4 @@
-package com.github.anddd7.controller
+package com.github.anddd7.core.api
 
 import org.springframework.security.access.annotation.Secured
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,4 +1,4 @@
-package com.github.anddd7.service
+package com.github.anddd7.core.service
 
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Service

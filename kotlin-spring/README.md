@@ -1,6 +1,6 @@
-# Title
+# kotlin-spring
 
-introduction
+A template of kotlin-spring project.
 
 ## Lint
 
@@ -12,30 +12,31 @@ introduction
 
 ## Deploy
 
-## Features:
--[x] 权限管理: 用户 角色 资源
+## Features
+- [x] 权限管理: 用户 角色 资源
   - [x] 使用code作为permission主键 instead `id`
   - [x] ~~Add `resource url` mapping to permission, 通过filter自动校验权限~~, 使用annotation
 -[x] 登录校验, security
-  - [ ] JWT, 可跨应用
+  - [x] JWT, 可跨应用
   - [x] ~~OAuth: 多client~~
--[x] Spring Cache: method level
--[x] field validation
+- [x] Spring Cache: method level
+- [x] field validation
   - [x] complex model validation
-  - [ ] mess validation
--[x] integration test,jpa test, unit test, mockk, assertj
--[ ] logging
-  - [ ] DB audit logging with MDC
+  - [x] mess validation
+- [x] integration test,jpa test, unit test, mockk, assertj
+- [ ] logging
+  - [ ] DB audit logging
   - [x] request/response logging - once request filter
   - [x] security logging - debug logging on
--[x] jpa, ~~mybatis,~~ hibernate
+- [x] jpa, ~~mybatis,~~ hibernate
   - hibernate: More suitable object-oriented, modeling, DDD
   - mybatis: Only use it if you have a lot of join/union/other complex DB operation
   - [Hibernate vs MyBatis](https://www.zhihu.com/question/21104468),
   Hibernate is more advantageous than mybatis in most of scenario.
   - [ ] hibernate cache: second level 
--[x] jacoco, ~~ktlint,~~ detekt
+- [x] jacoco, ~~ktlint,~~ detekt
   - [x] detekt include most of features of ktlint, idea also provides good lint.
--[x] exception, http status, handler
--[ ] contract testing with wiremock
--[ ] model mapping
+- [x] exception, http status, handler
+- [ ] contract testing with wiremock
+- [ ] model mapping
+- [ ] split api test

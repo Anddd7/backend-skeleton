@@ -5,6 +5,7 @@ class JWTConfig(
     publicKeyString: String = ""
 ) {
   val authUrl = "/auth/authenticate"
+  @SuppressWarnings("MagicNumber")
   val expirationTime = 864_000_000
   val algorithm = "RS512"
   val keyPair = RSAKeyPairProvider.build(privateKeyString, publicKeyString)

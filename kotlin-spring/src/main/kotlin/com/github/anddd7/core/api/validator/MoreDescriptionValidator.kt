@@ -1,6 +1,6 @@
-package com.github.anddd7.controller.validator
+package com.github.anddd7.core.api.validator
 
-import com.github.anddd7.controller.MoreDescription
+import com.github.anddd7.core.api.MoreDescription
 import org.slf4j.LoggerFactory
 import javax.validation.Constraint
 import javax.validation.ConstraintValidator

@@ -8,7 +8,7 @@ class ReceiptService(
     private val receiptRepository: ReceiptRepository,
     private val receiptMapper: ReceiptMapper
 ) {
-    fun find(id: UUID) = receiptMapper.fromDAO(
-        receiptRepository.findById(id).orElseThrow { NotFound("Not found receipt id = $id") }
-    )
+  fun find(id: UUID) = receiptMapper.fromDAO(
+      receiptRepository.findById(id).orElseThrow { NotFoundException("Not found receipt id = $id") }
+  )
 }

@@ -1,4 +1,4 @@
-package com.github.anddd7.dto
+package com.github.anddd7.core.model
 
 import com.fasterxml.jackson.annotation.JsonValue
 import org.springframework.http.HttpStatus

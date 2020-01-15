@@ -1,4 +1,4 @@
-package com.github.anddd7.model.auth
+package com.github.anddd7.security
 
 import com.github.anddd7.security.model.AuthPermission
 import com.github.anddd7.security.model.PermissionCode

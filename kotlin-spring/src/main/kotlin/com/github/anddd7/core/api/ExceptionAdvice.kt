@@ -1,7 +1,7 @@
-package com.github.anddd7.controller
+package com.github.anddd7.core.api
 
-import com.github.anddd7.dto.ErrorCode
-import com.github.anddd7.dto.InnerException
+import com.github.anddd7.core.model.ErrorCode
+import com.github.anddd7.core.model.InnerException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

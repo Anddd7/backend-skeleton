@@ -1,4 +1,4 @@
-package com.github.anddd7.service
+package com.github.anddd7.core.service
 
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.Cacheable

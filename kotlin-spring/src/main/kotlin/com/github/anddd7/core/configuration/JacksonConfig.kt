@@ -1,4 +1,4 @@
-package com.github.anddd7.configuration
+package com.github.anddd7.core.configuration
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature

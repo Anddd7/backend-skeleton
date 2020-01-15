@@ -1,6 +1,6 @@
-package com.github.anddd7.service
+package com.github.anddd7.core.service
 
-import com.github.anddd7.model.Temp
+import com.github.anddd7.core.model.Temp
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 

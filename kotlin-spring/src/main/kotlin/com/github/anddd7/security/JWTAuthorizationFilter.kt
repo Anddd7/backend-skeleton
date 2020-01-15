@@ -1,6 +1,6 @@
 package com.github.anddd7.security
 
-import com.github.anddd7.configuration.JsonUtil
+import com.github.anddd7.core.configuration.JsonUtil
 import com.github.anddd7.security.api.dto.AuthorizedUser
 import io.jsonwebtoken.Jwts
 import org.slf4j.LoggerFactory
