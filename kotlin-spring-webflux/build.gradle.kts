@@ -1,27 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.noarg.gradle.NoArgExtension
 import java.time.LocalDateTime.now
 import java.time.format.DateTimeFormatter.ofPattern
 
-plugins {
-  val kotlinVersion = "1.3.61"
-
-  idea
-  java
-  jacoco
-
-  kotlin("jvm") version kotlinVersion
-  kotlin("plugin.spring") version kotlinVersion
-
-  id("org.flywaydb.flyway") version "6.1.3"
-
-  id("org.springframework.boot") version "2.2.2.RELEASE"
-  id("io.spring.dependency-management") version "1.0.8.RELEASE"
-//  id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
-  id("org.jetbrains.kotlin.plugin.noarg") version kotlinVersion
-
-  id("io.gitlab.arturbosch.detekt") version "1.3.0"
-}
+/** -------------- project's properties -------------- */
 
 group = "com.github.anddd7"
 version = "0.0.1-SNAPSHOT"
@@ -31,6 +12,44 @@ repositories {
   maven { url = uri("https://repo.spring.io/milestone") }
   jcenter()
 }
+
+/** -------------- import & apply plugins -------------- */
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    // import dependencies for flyway plugin
+    classpath("org.postgresql:postgresql:42.2.5")
+  }
+}
+
+// import plugins into this project
+plugins {
+  val kotlinVersion = "1.3.61"
+
+  // core plugins, which is already include in plugin dependencies spec
+  idea
+  java
+  jacoco
+
+  kotlin("jvm") version kotlinVersion
+  kotlin("plugin.spring") version kotlinVersion
+
+  /**
+   * binary(external) plugins, provide id and version to resolve it
+   * base plugin for spring-boot, provide plugins and tasks
+   */
+  id("org.springframework.boot") version "2.2.2.RELEASE"
+  id("io.spring.dependency-management") version "1.0.8.RELEASE"
+
+  id("org.flywaydb.flyway") version "6.1.3"
+
+  id("io.gitlab.arturbosch.detekt") version "1.3.0"
+}
+
+/** -------------- dependencies management -------------- */
 
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -79,10 +98,9 @@ dependencies {
   // archunit
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
-
-  // annotation processor
-  annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
+
+/** -------------- configure imported plugin -------------- */
 
 idea {
   project {
@@ -107,10 +125,6 @@ jacoco {
   toolVersion = "0.8.3"
 }
 
-configure<NoArgExtension> {
-  annotation("javax.persistence.Entity")
-}
-
 val sourceSets = the<SourceSetContainer>()
 
 sourceSets {
@@ -122,6 +136,8 @@ sourceSets {
   }
 }
 
+/** -------------- configure tasks -------------- */
+
 tasks.register<Test>("apiTest") {
   description = "Runs the api tests."
   group = "verification"
@@ -130,15 +146,15 @@ tasks.register<Test>("apiTest") {
   mustRunAfter(tasks["test"])
 }
 
-tasks.withType<Test> {
-  useJUnitPlatform()
-}
-
 tasks.withType<KotlinCompile>().all {
   kotlinOptions {
     freeCompilerArgs = listOf("-Xjsr305=strict")
     jvmTarget = "11"
   }
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
