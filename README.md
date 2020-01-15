@@ -46,3 +46,39 @@ ref:
 ## kotlin-spring-webflux-ddd
 
 [README](./kotlin-spring-webflux/README.md)
+
+# Technical Reference
+
+## 架构
+
+- DDD
+- Clean Architecture
+
+## 核心
+
+- Kotlin
+- Spring Framework
+  - Spring Core: AOP/DI
+  - Spring MVC
+  - Spring WebFlux
+  - Spring JPA
+  - Spring R2DBC
+  - Spring Security
+  - Spring Boot
+  - Spring Test
+- Reactive Streams
+  - project-reactor
+  - RxJava
+
+## 工具/框架
+
+- mockK
+- deteKt
+- junit5
+- embedded-database-spring-test
+- archunit
+- docker
+  - docker-compose
+- gradle
+- logstash
+- assertj
