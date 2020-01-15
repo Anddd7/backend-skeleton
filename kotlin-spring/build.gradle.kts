@@ -35,72 +35,21 @@ plugins {
     jacoco
 
     kotlin("jvm") version kotlinVersion
+    // [spring support](https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support)
+    kotlin("plugin.spring") version kotlinVersion
+    // base on `kotlin-noarg`, generate default method for entity
+//    kotlin("plugin.jpa") version kotlinVersion
 
     /**
      * binary(external) plugins, provide id and version to resolve it
      * base plugin for spring-boot, provide plugins and tasks
      */
     id("org.springframework.boot") version "2.2.2.RELEASE"
-
-    // [spring support](https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support)
-    id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
+    id("io.spring.dependency-management") version "1.0.8.RELEASE"
 
     id("org.flywaydb.flyway") version "6.1.3"
 
-    // base on `kotlin-noarg`, generate default method for entity
-    id("org.jetbrains.kotlin.plugin.jpa") version kotlinVersion
-
     id("io.gitlab.arturbosch.detekt") version "1.3.0"
-}
-
-// apply dependency plugin form spring-boot plugin
-apply(plugin = "io.spring.dependency-management")
-
-/** -------------- configure imported plugin -------------- */
-
-idea {
-    module {
-        outputDir = file("$buildDir/classes/main")
-        testOutputDir = file("$buildDir/classes/test")
-        jdkName = "11"
-    }
-}
-
-flyway {
-    url = "jdbc:postgresql://localhost:5433/local?user=test&password=test"
-}
-
-detekt {
-    toolVersion = "1.1.1"
-    input = files("src/main/kotlin")
-}
-
-jacoco {
-    toolVersion = "0.8.3"
-}
-
-/** -------------- configure core task -------------- */
-
-// configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
-tasks.withType<KotlinCompile>().all {
-    kotlinOptions {
-//        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-
-tasks.withType<Test> {
-    testLogging {
-        quiet {
-            events = setOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
-        }
-    }
-    useJUnitPlatform()
-}
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
-    // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
-    // exclude("**/special/package/internal/**") // but exclude our legacy internal package
 }
 
 /** -------------- dependencies management -------------- */
@@ -167,7 +116,49 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.14.0")
 }
 
-/** -------------- new task -------------- */
+/** -------------- configure imported plugin -------------- */
+
+idea {
+    project {
+    jdkName = "11"
+  }
+    module {
+        outputDir = file("$buildDir/classes/main")
+        testOutputDir = file("$buildDir/classes/test")
+    }
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/local?user=test&password=test"
+}
+
+detekt {
+    toolVersion = "1.1.1"
+    input = files("src/main/kotlin")
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+}
+
+/** -------------- configure tasks -------------- */
+
+// configure kotlin's compile options [kotlin-gradle](https://kotlinlang.org/docs/reference/using-gradle.html)
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions {
+//        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "11"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt> {
+    // include("**/special/package/**") // only analyze a sub package inside src/main/kotlin
+    // exclude("**/special/package/internal/**") // but exclude our legacy internal package
+}
 
 task("newMigration") {
     group = "flyway"

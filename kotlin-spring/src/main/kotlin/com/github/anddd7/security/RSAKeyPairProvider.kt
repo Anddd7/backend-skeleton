@@ -44,10 +44,12 @@ object RSAKeyPairProvider {
             )
         )
 
+    private const val defaultKeySize = 1024
+
     private fun buildRandomKeyPair(
     ): KeyPair {
         val keyGen = KeyPairGenerator.getInstance("RSA")
-        keyGen.initialize(1024, SecureRandom())
+        keyGen.initialize(defaultKeySize, SecureRandom())
         val keyPair = keyGen.generateKeyPair()
         val privateKey = keyPair.private as RSAPrivateKey
         val publicKey = keyPair.public as RSAPublicKey
