@@ -69,4 +69,12 @@ reactor + netty + spring framework = BOOM!!!
 
 ## Spring Data Reactive
 
+有多个分支项目
+
+- [R2DBC(Reactive Relational Database Connectivity)](https://spring.io/projects/spring-data-r2dbc)
+    - 支持关系型数据库的响应式访问: postgres h2 sqlserver
+- Redis Reactive
+- Mongo Reactive
+...
+
 ## Kotlin with Spring WebFlux

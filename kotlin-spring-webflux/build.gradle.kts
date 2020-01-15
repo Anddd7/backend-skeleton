@@ -63,9 +63,6 @@ dependencies {
   // logstash extension for logback
   runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
 
-  // flyway
-  runtimeOnly("org.flywaydb:flyway-core")
-
   // unit test
   testImplementation("io.mockk:mockk:1.9.3")
   testImplementation("org.assertj:assertj-core:3.14.0")
@@ -82,6 +79,9 @@ dependencies {
   // archunit
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
+
+  // annotation processor
+  annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 idea {
