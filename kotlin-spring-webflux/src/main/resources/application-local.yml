@@ -2,7 +2,6 @@ server:
   port: 8080
 
 r2dbc:
-  host: localhost
   username: test
   password: test
   database: local

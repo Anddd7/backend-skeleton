@@ -98,6 +98,8 @@ MockK.coEvery
 
 ## Unit Test of WebClient & DatabaseClient
 
+unnecessary, covered in api test
+
 ## 线程模型 & I/O模型
 
 ### 同步/异步 vs 阻塞/非阻塞

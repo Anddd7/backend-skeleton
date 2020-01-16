@@ -1,6 +1,6 @@
 package com.github.anddd7.controller
 
-import com.github.anddd7.TestApplication
+import com.github.anddd7.Application
 import com.github.anddd7.entity.Product
 import com.github.anddd7.service.ProductService
 import com.github.anddd7.service.dto.ProductStockDTO
@@ -17,7 +17,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.math.BigDecimal
 
-@ContextConfiguration(classes = [TestApplication::class])
+@ContextConfiguration(classes = [Application::class])
 @WebFluxTest(ProductController::class)
 internal class ProductControllerTest {
 

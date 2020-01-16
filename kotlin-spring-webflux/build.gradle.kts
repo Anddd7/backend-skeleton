@@ -92,12 +92,15 @@ dependencies {
   implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
 
   // test with postgres
-//  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
+  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
 //  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
 
   // archunit
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
+
+  // wiremock
+  testImplementation("com.github.tomakehurst:wiremock:2.25.1")
 }
 
 /** -------------- configure imported plugin -------------- */

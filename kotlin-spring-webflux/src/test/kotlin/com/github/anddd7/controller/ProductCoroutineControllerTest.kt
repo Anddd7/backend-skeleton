@@ -1,6 +1,6 @@
 package com.github.anddd7.controller
 
-import com.github.anddd7.TestApplication
+import com.github.anddd7.Application
 import com.github.anddd7.entity.Product
 import com.github.anddd7.service.ProductCoroutineService
 import com.github.anddd7.service.dto.ProductStockDTO
@@ -16,7 +16,7 @@ import org.springframework.test.web.reactive.server.expectBody
 import org.springframework.test.web.reactive.server.expectBodyList
 import java.math.BigDecimal
 
-@ContextConfiguration(classes = [TestApplication::class])
+@ContextConfiguration(classes = [Application::class])
 @WebFluxTest(ProductCoroutineController::class)
 internal class ProductCoroutineControllerTest {
 

@@ -17,6 +17,7 @@ class PostgresConfig(private val properties: PostgresProperties) : AbstractR2dbc
       PostgresqlConnectionFactory(
           PostgresqlConnectionConfiguration.builder()
               .host(properties.host)
+              .port(properties.port)
               .username(properties.username)
               .password(properties.password)
               .database(properties.database)
@@ -27,8 +28,9 @@ class PostgresConfig(private val properties: PostgresProperties) : AbstractR2dbc
 @Configuration
 @ConfigurationProperties("r2dbc")
 class PostgresProperties {
-  lateinit var host: String
+  var host: String = "localhost"
+  var port: Int = 5432
   lateinit var username: String
-  lateinit var password: String
+  var password: String = ""
   lateinit var database: String
 }
