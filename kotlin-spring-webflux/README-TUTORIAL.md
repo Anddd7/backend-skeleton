@@ -13,7 +13,7 @@ Kotlin
 > Kotlin相对于Java来说, 主要是提供了大量的语法糖, 减少了代码量. 
   空值检测也是有效的环节了Java NullPointerException的恶心程度.
   Kotlin Coroutines则是从语法层面, 降低了JVM线程的使用难度.
-  
+
 Spring WebFlux
 - Spring5核心功能
 - 实现了Reactive Streams
@@ -29,6 +29,7 @@ Spring WebFlux
 - Java 基础
 - Kotlin 基础
 - Spring Boot 基础
+- (Optional) 同步/异步, 阻塞/非阻塞, I/O, 线程模型
 
 ## Kotlin Coroutines
 
@@ -79,8 +80,24 @@ reactor + netty + spring framework = BOOM!!!
 
 ## Kotlin with Spring WebFlux
 
+[Kotlin Coroutine 是如何与 Spring WebFlux 整合的](https://www.jianshu.com/p/17d93f1afc50)
+
+Mono -> Coroutine -> Mono
+
 ## Unit Test of Reactor
 
 ## Unit Test of Kotlin Coroutines
 
 ## Unit Test of WebClient & DatabaseClient
+
+## 线程模型 & I/O模型
+
+### 同步/异步 vs 阻塞/非阻塞
+![img](./images/sync-async-blocking-nonblocking.png)
+
+![img](./images/io模型.png)
+
+![img](./images/5-io-model.png)
+
+### Java线程状态
+![img](https://img-blog.csdnimg.cn/20181120173640764.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3BhbmdlMTk5MQ==,size_16,color_FFFFFF,t_70)
