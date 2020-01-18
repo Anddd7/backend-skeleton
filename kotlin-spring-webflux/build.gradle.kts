@@ -87,59 +87,58 @@ jacoco {
 /** -------------- dependencies management -------------- */
 
 dependencies {
+  /* kotlin */
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  testImplementation("io.mockk:mockk:1.9.3")
+  testImplementation("org.assertj:assertj-core:3.14.0")
 
-  /* integrate kotlin coroutines with reactor */
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+  /* junit5 */
+  testImplementation("org.junit.jupiter:junit-jupiter-engine")
 
-  /* spring */
-//  implementation("org.springframework.boot:spring-boot-starter-security")
-  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  /* webflux x reactor*/
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-  /* spring test */
-//  testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.springframework.boot:spring-boot-starter-test") {
     exclude(module = "junit")
     exclude(group = "org.mockito")
     exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
   }
   testImplementation("com.ninja-squad:springmockk:1.1.3")
-
-  // junit5
-  testImplementation("org.junit.jupiter:junit-jupiter-engine")
-
-  // logstash extension for logback
-  runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
-
-  // unit test
-  testImplementation("io.mockk:mockk:1.9.3")
-  testImplementation("org.assertj:assertj-core:3.14.0")
   testImplementation("io.projectreactor:reactor-test")
 
-  // r2bdc: reactive relational database connector
-  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
+  /* kotlin coroutines x reactor */
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+  /* security */
+  //  implementation("org.springframework.boot:spring-boot-starter-security")
+  //  testImplementation("org.springframework.security:spring-security-test")
+
+  /* monitoring x logging */
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
+  runtimeOnly("net.logstash.logback:logstash-logback-encoder:5.2")
+
+  /* r2bdc: reactive relational database connector */
   implementation("org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:0.1.0.M3")
-  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
-  implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
-  // jdbc & flyway
+  // you can import and configure r2dbc manually in spring if you don't want to use experimental
+  //  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
+  //  implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
+  runtimeOnly("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
+  // jdbc x flyway
+  // ps: jdbc is only used by flyway and embedded db to do migration and test preparation
   implementation("org.springframework.boot:spring-boot-starter-jdbc")
-  implementation("org.postgresql:postgresql")
-
-  // test with postgres
-  testImplementation("io.zonky.test:embedded-postgres:1.2.6")
   implementation("org.flywaydb:flyway-core:6.1.4")
-//  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
-//  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
+  runtimeOnly("org.postgresql:postgresql")
 
-  // archunit
+  /* mock db x server */
+  testImplementation("io.zonky.test:embedded-postgres:1.2.6")
+  testImplementation("com.github.tomakehurst:wiremock:2.25.1")
+
+  /* architecture verification */
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
 }
-
 
 /** -------------- configure tasks -------------- */
 
