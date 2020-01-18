@@ -18,4 +18,5 @@ spring:
   flyway:
     locations: classpath:db/migration
 
-stock-api: http://localhost:8080
+downstream:
+  stock: http://localhost:8080
