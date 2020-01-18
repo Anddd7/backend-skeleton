@@ -96,9 +96,14 @@ MockK.coEvery
 
 > 和普通的单元测试几乎没有区别
 
-## Unit Test of WebClient & DatabaseClient
+## ~~Unit~~ Test of WebClient & DatabaseClient
 
-unnecessary, covered in api test
+WireMock
+EmbeddedDatabase
+
+## Reactive Transaction
+
+## WebFlux Security
 
 ## 线程模型 & I/O模型
 

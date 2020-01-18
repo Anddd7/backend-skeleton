@@ -20,30 +20,46 @@ Check on `Other: Ensure line feed at file end on Save`
 
 ## java-spring
 
-basic template
+basic template, deprecate
+
+- just search in github, you can find many kinds of samples
 
 [README](./java-spring/README.md)
 
 ## java-spring-ddd
 
-ref:
+Good template from Thoughtworkers:
 
 - https://github.com/howiehu/ddd-architecture-samples
 - https://github.com/e-commerce-sample/ecommerce-order-service
 
 ## kotlin-spring
 
+in progress
+
+- almost done, add more comments
+
 [README](./kotlin-spring/README.md)
 
 ## kotlin-spring-ddd
+
+extend **kotlin-spring**, unstarted
 
 [README](./kotlin-spring-ddd/README.md)
 
 ## kotlin-spring-webflux
 
+in progress
+
+- archunit
+- security
+- transactional
+
 [README](./kotlin-spring-webflux/README.md)
 
 ## kotlin-spring-webflux-ddd
+
+extend **kotlin-spring-webflux**, unstarted
 
 [README](./kotlin-spring-webflux/README.md)
 
