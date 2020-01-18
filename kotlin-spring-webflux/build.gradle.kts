@@ -13,17 +13,16 @@ repositories {
   jcenter()
 }
 
-/** -------------- import & apply plugins -------------- */
-
 buildscript {
   repositories {
     jcenter()
   }
-  dependencies {
-    // import dependencies for flyway plugin
-    classpath("org.postgresql:postgresql:42.2.5")
-  }
 }
+
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
+
+/** -------------- import & apply plugins -------------- */
 
 // import plugins into this project
 plugins {
@@ -44,9 +43,50 @@ plugins {
   id("org.springframework.boot") version "2.2.2.RELEASE"
   id("io.spring.dependency-management") version "1.0.8.RELEASE"
 
-  id("org.flywaydb.flyway") version "6.1.3"
+  id("org.flywaydb.flyway") version "6.1.4"
 
   id("io.gitlab.arturbosch.detekt") version "1.3.0"
+}
+
+/** -------------- configure imported plugin -------------- */
+
+val sourceSets = the<SourceSetContainer>()
+
+sourceSets {
+  create("apiTest") {
+    java.srcDir("src/apiTest/kotlin")
+    resources.srcDir("src/apiTest/resources")
+    compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+    runtimeClasspath += output + compileClasspath
+  }
+}
+
+idea {
+  project {
+    jdkName = "11"
+  }
+  module {
+    outputDir = file("$buildDir/classes/main")
+    testOutputDir = file("$buildDir/classes/test")
+
+    sourceDirs.remove(file("src/apiTest/kotlin"))
+    resourceDirs.remove(file("src/apiTest/resources"))
+    testSourceDirs.add(file("src/apiTest/kotlin"))
+    testResourceDirs.add(file("src/apiTest/resources"))
+  }
+}
+
+flyway {
+  url = "jdbc:postgresql://localhost:5432/local?user=test&password=test"
+}
+
+detekt {
+  toolVersion = "1.1.1"
+  input = files("src/main/kotlin")
+}
+
+jacoco {
+  toolVersion = "0.8.3"
 }
 
 /** -------------- dependencies management -------------- */
@@ -63,8 +103,6 @@ dependencies {
 //  implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-webflux")
-  // reactive relational database connector
-  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
   /* spring test */
@@ -87,57 +125,26 @@ dependencies {
   testImplementation("org.assertj:assertj-core:3.14.0")
   testImplementation("io.projectreactor:reactor-test")
 
-  // r2bdc
+  // r2bdc: reactive relational database connector
+  implementation("org.springframework.data:spring-data-r2dbc:1.0.0.RELEASE")
+  implementation("org.springframework.boot.experimental:spring-boot-starter-data-r2dbc:0.1.0.M3")
   implementation("io.r2dbc:r2dbc-spi:0.8.0.RELEASE")
   implementation("io.r2dbc:r2dbc-postgresql:0.8.0.RELEASE")
+  // jdbc & flyway
+  implementation("org.springframework.boot:spring-boot-starter-jdbc")
+  implementation("org.postgresql:postgresql")
 
   // test with postgres
-  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
+//  testImplementation("io.zonky.test:embedded-postgres:1.2.6")
+  implementation("org.flywaydb:flyway-core:6.1.4")
+//  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
 //  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")
 
   // archunit
   testImplementation("com.tngtech.archunit:archunit-junit5-api:0.12.0")
   testRuntimeOnly("com.tngtech.archunit:archunit-junit5-engine:0.12.0")
-
-  // wiremock
-  testImplementation("com.github.tomakehurst:wiremock:2.25.1")
 }
 
-/** -------------- configure imported plugin -------------- */
-
-idea {
-  project {
-    jdkName = "11"
-  }
-  module {
-    outputDir = file("$buildDir/classes/main")
-    testOutputDir = file("$buildDir/classes/test")
-  }
-}
-
-flyway {
-  url = "jdbc:postgresql://localhost:5432/local?user=test&password=test"
-}
-
-detekt {
-  toolVersion = "1.1.1"
-  input = files("src/main/kotlin")
-}
-
-jacoco {
-  toolVersion = "0.8.3"
-}
-
-val sourceSets = the<SourceSetContainer>()
-
-sourceSets {
-  create("apiTest") {
-    java.srcDir("src/apiTest/kotlin")
-    resources.srcDir("src/apiTest/resources")
-    compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
-    runtimeClasspath += output + compileClasspath
-  }
-}
 
 /** -------------- configure tasks -------------- */
 
