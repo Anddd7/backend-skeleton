@@ -12,23 +12,23 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @EnableApiTest
 @AutoConfigureWebTestClient
-internal class ProductControllerApiTest {
+internal class ProductCoroutineControllerApiTest {
 
   @Autowired
   private lateinit var webClient: WebTestClient
 
   @Test
   internal fun `should find all products`() {
-    webClient.get().uri("/product").exchange().expectStatus().isOk
+    webClient.get().uri("/coroutine/product").exchange().expectStatus().isOk
   }
 
   @Test
   internal fun `should get the product by id`() {
-    webClient.get().uri("/product/1").exchange().expectStatus().isOk
+    webClient.get().uri("/coroutine/product/1").exchange().expectStatus().isOk
   }
 
   @Test
   internal fun `should get stock of product`() {
-    webClient.get().uri("/product/1/stock").exchange().expectStatus().isOk
+    webClient.get().uri("/coroutine/product/1/stock").exchange().expectStatus().isOk
   }
 }

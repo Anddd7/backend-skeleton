@@ -1,11 +1,9 @@
 package com.github.anddd7
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@EnableApiTest
 class ApplicationTests {
-
   @Test
   fun contextLoads() {
   }

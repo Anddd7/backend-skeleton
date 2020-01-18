@@ -20,7 +20,9 @@ class ProductController(private val productService: ProductService) {
   fun products(): Flux<Product> = productService.findAll()
 
   @GetMapping("/{id}")
-  fun productStock(@PathVariable id: Long): Mono<ProductStockDTO> = productService.getProductStock(id)
+  fun productStock(@PathVariable id: Long): Mono<ProductStockDTO> =
+      productService.getProductStock(id)
+          .switchIfEmpty(Mono.error(NoSuchElementException()))
 
   @GetMapping("/{id}/stock")
   fun stock(@PathVariable id: Long): Mono<BigDecimal> = Mono.just(

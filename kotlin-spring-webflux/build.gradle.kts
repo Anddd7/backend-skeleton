@@ -68,11 +68,6 @@ idea {
   module {
     outputDir = file("$buildDir/classes/main")
     testOutputDir = file("$buildDir/classes/test")
-
-    sourceDirs.remove(file("src/apiTest/kotlin"))
-    resourceDirs.remove(file("src/apiTest/resources"))
-    testSourceDirs.add(file("src/apiTest/kotlin"))
-    testResourceDirs.add(file("src/apiTest/resources"))
   }
 }
 
@@ -135,7 +130,7 @@ dependencies {
   implementation("org.postgresql:postgresql")
 
   // test with postgres
-//  testImplementation("io.zonky.test:embedded-postgres:1.2.6")
+  testImplementation("io.zonky.test:embedded-postgres:1.2.6")
   implementation("org.flywaydb:flyway-core:6.1.4")
 //  testImplementation("io.zonky.test:embedded-database-spring-test:1.5.2")
 //  testRuntimeOnly("org.testcontainers:postgresql:1.12.4")

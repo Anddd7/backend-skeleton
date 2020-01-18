@@ -1,5 +1,1 @@
-r2dbc:
-  username: postgres
-  database: postgres
-
 stock-api: http://localhost:18080
