@@ -55,7 +55,7 @@ in progress
 - security
 - transactional
 
-[README](./kotlin-spring-webflux/README.md)
+[README](./kotlin-spring-webflux-template/README.md)
 
 ## kotlin-spring-webflux-ddd
 
