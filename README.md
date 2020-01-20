@@ -51,7 +51,6 @@ extend **kotlin-spring**, unstarted
 
 in progress
 
-- archunit
 - security
 - transactional
 
@@ -59,9 +58,11 @@ in progress
 
 ## kotlin-spring-webflux-ddd
 
-extend **kotlin-spring-webflux**, unstarted
+extend **kotlin-spring-webflux**, in progress
 
-[README](./kotlin-spring-webflux/README.md)
+- complex demo to show every module of ddd and clean architecture
+
+[README](./kotlin-spring-webflux-ddd-template/README.md)
 
 # Technical Reference
 
