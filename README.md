@@ -58,9 +58,7 @@ in progress
 
 ## kotlin-spring-webflux-ddd
 
-extend **kotlin-spring-webflux**, in progress
-
-- complex demo to show every module of ddd and clean architecture
+extend **kotlin-spring-webflux** and **kotlin-spring-ddd**, done
 
 [README](./kotlin-spring-webflux-ddd-template/README.md)
 
