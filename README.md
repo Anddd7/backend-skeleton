@@ -35,17 +35,15 @@ Good template from Thoughtworkers:
 
 ## kotlin-spring
 
-in progress
+done
 
-- almost done, add more comments
-
-[README](./kotlin-spring/README.md)
+[README](https://github.com/Anddd7/kotlin-spring-template/README.md)
 
 ## kotlin-spring-ddd
 
-extend **kotlin-spring**, unstarted
+extend **kotlin-spring**, in progress
 
-[README](./kotlin-spring-ddd/README.md)
+[README](https://github.com/Anddd7/kotlin-spring-ddd-template/README.md)
 
 ## kotlin-spring-webflux
 
@@ -54,13 +52,13 @@ in progress
 - security
 - transactional
 
-[README](./kotlin-spring-webflux-template/README.md)
+[README](https://github.com/Anddd7/kotlin-spring-webflux-template/README.md)
 
 ## kotlin-spring-webflux-ddd
 
 extend **kotlin-spring-webflux** and **kotlin-spring-ddd**, done
 
-[README](./kotlin-spring-webflux-ddd-template/README.md)
+[README](https://github.com/Anddd7/kotlin-spring-webflux-ddd-template/README.md)
 
 # Technical Reference
 

@@ -4,3 +4,6 @@
 [submodule "kotlin-spring-webflux-ddd-template"]
 	path = kotlin-spring-webflux-ddd-template
 	url = git@github.com:Anddd7/kotlin-spring-webflux-ddd-template.git
+[submodule "kotlin-spring-ddd-template"]
+	path = kotlin-spring-ddd-template
+	url = git@github.com:Anddd7/kotlin-spring-ddd-template.git

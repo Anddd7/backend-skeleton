@@ -1,8 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5433/local
-    username: test
-    password: test
-  cache:
-    jcache:
-      config: "classpath:ehcache3.xml"
