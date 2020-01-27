@@ -35,7 +35,7 @@ Good template from Thoughtworkers:
 
 ## kotlin-spring
 
-done
+in progress, also a playground to do some test
 
 [README](https://github.com/Anddd7/kotlin-spring-template/README.md)
 
@@ -43,13 +43,19 @@ done
 
 extend **kotlin-spring**, in progress
 
+- ddd
+- clean architecture
+- guide of ddd
+- api test
+
 [README](https://github.com/Anddd7/kotlin-spring-ddd-template/README.md)
 
 ## kotlin-spring-webflux
 
 in progress
 
-- security
+- graphql
+- reactive security
 - transactional
 
 [README](https://github.com/Anddd7/kotlin-spring-webflux-template/README.md)
@@ -95,3 +101,5 @@ extend **kotlin-spring-webflux** and **kotlin-spring-ddd**, done
 - gradle
 - logstash
 - assertj
+- graphql
+- swagger
