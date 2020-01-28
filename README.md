@@ -20,51 +20,53 @@ Check on `Other: Ensure line feed at file end on Save`
 
 ## java-spring
 
-basic template, deprecate
+basic template, **deprecated**
 
-- just search in github, you can find many kinds of samples
+> search in github, you can find better samples
 
 [README](./java-spring/README.md)
 
 ## java-spring-ddd
 
-Good template from Thoughtworkers:
+Good template from ThoughtWorkers:
 
 - https://github.com/howiehu/ddd-architecture-samples
 - https://github.com/e-commerce-sample/ecommerce-order-service
 
-## kotlin-spring
+## [kotlin-spring](https://github.com/Anddd7/kotlin-spring-template)
 
-in progress, also a playground to do some test
+**in progress**, also a playground to do some test
 
-[README](https://github.com/Anddd7/kotlin-spring-template/README.md)
+Special Features:
 
-## kotlin-spring-ddd
+- spring framework: mvc, jpa, security, test
+- security model: user, role, permission
+- api test with embedded db
 
-extend **kotlin-spring**, in progress
+## [kotlin-spring-ddd](https://github.com/Anddd7/kotlin-spring-ddd-template)
+
+extend **kotlin-spring**, **in progress**
+
+Special Features:
 
 - ddd
-- clean architecture
-- guide of ddd
-- api test
+- clean architecture: adapters and port
 
-[README](https://github.com/Anddd7/kotlin-spring-ddd-template/README.md)
+## [kotlin-spring-webflux](https://github.com/Anddd7/kotlin-spring-webflux-template)
 
-## kotlin-spring-webflux
+**in progress**
 
-in progress
+Special Features:
 
+- webflux
+  - reactor
+  - r2dbc
+- kotlin coroutines
 - graphql
-- reactive security
-- transactional
 
-[README](https://github.com/Anddd7/kotlin-spring-webflux-template/README.md)
+## [kotlin-spring-webflux-ddd](https://github.com/Anddd7/kotlin-spring-webflux-ddd-template)
 
-## kotlin-spring-webflux-ddd
-
-extend **kotlin-spring-webflux** and **kotlin-spring-ddd**, done
-
-[README](https://github.com/Anddd7/kotlin-spring-webflux-ddd-template/README.md)
+extend **kotlin-spring-webflux** and **kotlin-spring-ddd**, **done**
 
 # Technical Reference
 
