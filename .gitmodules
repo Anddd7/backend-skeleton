@@ -10,3 +10,6 @@
 [submodule "kotlin-spring-ddd-template"]
 	path = kotlin-spring-ddd-template
 	url = git@github.com:Anddd7/kotlin-spring-ddd-template.git
+[submodule "spring-performance-benchmark"]
+	path = spring-performance-benchmark
+	url = git@github.com:Anddd7/spring-performance-benchmark.git
