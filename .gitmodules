@@ -15,4 +15,7 @@
 	url = git@github.com:Anddd7/spring-performance-benchmark.git
 [submodule "kotlin-vertx-template"]
 	path = kotlin-vertx-template
-	url = ./kotlin-vertx-template
+	url = git@github.com:Anddd7/kotlin-vertx-template.git
+[submodule "kotlin-spring-multiple-modules"]
+	path = kotlin-spring-multiple-modules
+	url = git@github.com:Anddd7/kotlin-spring-multiple-modules.git
