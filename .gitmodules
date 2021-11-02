@@ -19,3 +19,6 @@
 [submodule "kotlin-spring-multiple-modules"]
 	path = kotlin-spring-multiple-modules
 	url = git@github.com:Anddd7/kotlin-spring-multiple-modules.git
+[submodule "kotlin-microservices-template"]
+	path = kotlin-microservices-template
+	url = git@github.com:Anddd7/kotlin-microservices-template.git
