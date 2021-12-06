@@ -22,3 +22,6 @@
 [submodule "kotlin-microservices-template"]
 	path = kotlin-microservices-template
 	url = git@github.com:Anddd7/kotlin-microservices-template.git
+[submodule "kotlin-micronaunt-template"]
+	path = kotlin-micronaunt-template
+	url = git@github.com:Anddd7/kotlin-micronaunt-template.git
